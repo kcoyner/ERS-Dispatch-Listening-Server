@@ -4,10 +4,23 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var request = require('request');
+var firebase = require('firebase');
+require('firebase/database');
+var dbconfig = require('./util/db-config');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var calls = require('./routes/calls');
+
+// const firebaseApp = firebase.initializeApp(dbconfig);
+
+// console.log(firebaseApp.name);
+
+firebase.auth().signInWithEmailAndPassword('emergency.response.solutions1@gmail.com', 'password')
+.catch(function(error) {
+  console.log(error);
+});
 
 var app = express();
 
