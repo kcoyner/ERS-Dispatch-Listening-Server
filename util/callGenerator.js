@@ -1,21 +1,26 @@
+var request = require("request");
 var dbconfig = require('./db-config');
 var firebase = require('firebase');
 require('firebase/database');
-const firebaseApp = firebase.initializeApp(dbconfig);
 
 const tableName = "/ersDispatches/";
-
 var data = require('./dummy_data');
-// console.log('data: ', data.maindata);
 
-// data.maindata.forEach(call => console.log(call) );
-
-// Get a random call object from data
 var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1);
 
-// Update the timestamp/timeout
+var dummyCall = data.maindata[randomCallNumber];
 
+var options = {
+  method: 'POST',
+  // url: 'http://localhost:30303/calls',
+  url: 'http://gfd.dispatch.rustybear.com/calls',
+  qs: dummyCall,
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded'
+  }
+};
 
-// Update Firebase database
-var newCall = firebaseApp.database().ref(tableName).push(data.maindata[randomCallNumber]);
-console.log('newCall: ', newCall);
+request(options, function(error, response, body) {
+  if (error) throw new Error(error);
+  console.log(body);
+});
