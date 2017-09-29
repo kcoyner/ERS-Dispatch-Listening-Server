@@ -12,11 +12,16 @@ var firebase_cred = {
     messagingSenderId: "412226656783"
 }
 
-// firebase.initializeApp(firebase_cred);
+firebase.initializeApp(firebase_cred);
 
-// firebase.auth().signInWithEmailAndPassword('emergency.response.solutions1@gmail.com', 'password')
-// .catch(function(error) {
-//   console.log(error);
-// });
+firebase.auth().signInWithEmailAndPassword('emergency.response.solutions1@gmail.com', 'password')
+.then(function(){
+  firebase.auth().onAuthStateChanged(function(user) {
+    console.log('Logged in as: ', user.email);
+  });
+})
+.catch(function(error) {
+  console.log(error);
+});
 
 module.exports = firebase_cred;

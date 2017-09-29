@@ -1,4 +1,5 @@
 
+data = { maindata:
 [
   {
     id: "1700034999",
@@ -9,6 +10,7 @@
     crossstreets: "Strickland Rd/Loughlin Av",
     district: "Cos Cob",
     assignment: ["E2"],
+    gps: [41.030465, -73.598209],
     radiofreq: "CH1A",
     timeout: "170923 18:13"
   },
@@ -141,6 +143,7 @@
     crossstreets: "Morningside Dr/Osceola Dr",
     district: "Cos Cob",
     assignment: ["WFIR"],
+    gps: [41.024921, -73.605763],
     radiofreq: "",
     timeout: "170920 10:48"
   },
@@ -153,6 +156,7 @@
     crossstreets: "Morningside Dr/Osceola Dr",
     district: "Cos Cob",
     assignment: ["E3", "E5"],
+    gps: [41.024921, -73.605763],
     radiofreq: "",
     timeout: "170920 10:48"
   },
@@ -165,6 +169,7 @@
     crossstreets: "Morningside Dr/Osceola Dr",
     district: "Cos Cob",
     assignment: ["E5", "T1", "DC"],
+    gps: [41.024921, -73.605763],
     radiofreq: "",
     timeout: "170920 10:48"
   },
@@ -177,6 +182,7 @@
     crossstreets: "Morningside Dr/Osceola Dr",
     district: "Cos Cob",
     assignment: ["E2", "E1"],
+    gps: [41.024921, -73.605763],
     radiofreq: "CH1A",
     timeout: "170920 10:48"
   },
@@ -194,4 +200,7 @@
   }
 ]
 
+}
 
+
+module.exports = data;
