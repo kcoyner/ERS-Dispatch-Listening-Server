@@ -12,8 +12,8 @@ var dummyCall = data.maindata[randomCallNumber];
 
 var options = {
   method: 'POST',
-  url: 'http://localhost:30137/calls',
-  // url: 'http://gfd.dispatch.rustybear.com/calls',
+  // url: 'http://localhost:30137/calls',
+  url: 'http://gfd.dispatch.rustybear.com/calls',
   qs: dummyCall,
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
