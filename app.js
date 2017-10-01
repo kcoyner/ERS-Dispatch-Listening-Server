@@ -60,7 +60,7 @@ app.use(function(err, req, res, next) {
 function startDummyCalls() {
 
   var rule = new schedule.RecurrenceRule();
-  rule.minute = 40;
+  rule.minute = 50;
 
   schedule.scheduleJob(rule, function () {
     const tableName = "/ersDispatches/";
