@@ -15,6 +15,8 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var calls = require('./routes/calls');
 
+const startDummyCalls = require('./util/callGenerator.js');
+
 firebase.auth().signInWithEmailAndPassword('emergency.response.solutions1@gmail.com', 'password')
 .catch(function(error) {
   console.log(error);
@@ -27,7 +29,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -56,35 +58,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// generate dummy calls on a schedule
-function startDummyCalls() {
-
-  var rule = new schedule.RecurrenceRule();
-  rule.minute = 50;
-
-  schedule.scheduleJob(rule, function () {
-    const tableName = "/ersDispatches/";
-    var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1);
-    var dummyCall = data.maindata[randomCallNumber];
-
-    var options = {
-      method: 'POST',
-      // url: 'http://localhost:30137/calls',
-      url: 'http://gfd.dispatch.rustybear.com/calls',
-      qs: dummyCall,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded'
-      }
-    };
-
-    request(options, function(error, response, body) {
-      if (error) throw new Error(error);
-      console.log('stop the dummies');
-      console.log(body);
-    });
-  });
-}
-
+// start creating dummy calls
+// comment out once live data is received
+// see ./util/callGenerator.js
 startDummyCalls();
 
 module.exports = app;
+
