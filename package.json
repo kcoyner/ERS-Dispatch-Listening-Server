@@ -19,6 +19,7 @@
     "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
+    "node-schedule": "^1.2.5",
     "nodemon": "^1.12.1"
   }
 }

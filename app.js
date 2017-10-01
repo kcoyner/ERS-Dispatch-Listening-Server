@@ -8,14 +8,12 @@ var request = require('request');
 var firebase = require('firebase');
 require('firebase/database');
 var dbconfig = require('./util/db-config');
+var schedule = require('node-schedule');
+var data = require('./util/dummy_data');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var calls = require('./routes/calls');
-
-// const firebaseApp = firebase.initializeApp(dbconfig);
-
-// console.log(firebaseApp.name);
 
 firebase.auth().signInWithEmailAndPassword('emergency.response.solutions1@gmail.com', 'password')
 .catch(function(error) {
@@ -57,5 +55,36 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// generate dummy calls on a schedule
+function startDummyCalls() {
+
+  var rule = new schedule.RecurrenceRule();
+  rule.minute = 40;
+
+  schedule.scheduleJob(rule, function () {
+    const tableName = "/ersDispatches/";
+    var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1);
+    var dummyCall = data.maindata[randomCallNumber];
+
+    var options = {
+      method: 'POST',
+      // url: 'http://localhost:30137/calls',
+      url: 'http://gfd.dispatch.rustybear.com/calls',
+      qs: dummyCall,
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    };
+
+    request(options, function(error, response, body) {
+      if (error) throw new Error(error);
+      console.log('stop the dummies');
+      console.log(body);
+    });
+  });
+}
+
+startDummyCalls();
 
 module.exports = app;
