@@ -1,5 +1,6 @@
 'use strict';
 
+const process = require('process');
 const request = require("request");
 const nodemailer = require('nodemailer');
 const dbconfig = require('./db-config');
@@ -9,12 +10,8 @@ const data = require('./dummy_data');
 
 require('firebase/database');
 
-/**
- * Generate dummy calls every hour on the minute
- * @param {number} rule.minute
- */
-
-let mailTransport = nodemailer.createTransport('smtps://emergency.response.solutions1@gmail.com:P@$$w0rd1@smtp.gmail.com');
+const EPASSWD = process.get.EPASSWD;
+let mailTransport = nodemailer.createTransport('smtps://emergency.response.solutions1@gmail.com:' + EPASSWD + '@smtp.gmail.com');
 let email = 'kevin@rustybear.com';
 
 // function sendNotificationEmail(email) {
@@ -30,6 +27,10 @@ const sendNotificationEmail = (email, text) => {
   });
 }
 
+/**
+ * Generate dummy calls every hour on the minute
+ * @param {number} rule.minute
+ */
 const startDummyCalls = () => {
   var rule = new schedule.RecurrenceRule();
   rule.minute = 28;
