@@ -33,7 +33,7 @@ const sendNotificationEmail = (email, text) => {
  */
 const startDummyCalls = () => {
   var rule = new schedule.RecurrenceRule();
-  rule.minute = 28;
+  rule.minute = 10;
 
   schedule.scheduleJob(rule, function () {
     const tableName = "/ersDispatches/";
