@@ -8,14 +8,14 @@ var request = require('request');
 var firebase = require('firebase');
 require('firebase/database');
 var dbconfig = require('./util/db-config');
+var schedule = require('node-schedule');
+var data = require('./util/dummy_data');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var calls = require('./routes/calls');
 
-// const firebaseApp = firebase.initializeApp(dbconfig);
-
-// console.log(firebaseApp.name);
+const startDummyCalls = require('./util/callGenerator.js');
 
 firebase.auth().signInWithEmailAndPassword('emergency.response.solutions1@gmail.com', 'password')
 .catch(function(error) {
@@ -29,7 +29,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -58,4 +58,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// start creating dummy calls
+// comment out once live data is received
+// see ./util/callGenerator.js
+startDummyCalls();
+
 module.exports = app;
+
