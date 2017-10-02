@@ -10,7 +10,7 @@ const data = require('./dummy_data');
 
 require('firebase/database');
 
-const EPASSWD = process.get.EPASSWD;
+const EPASSWD = process.env.EPASSWD;
 let mailTransport = nodemailer.createTransport('smtps://emergency.response.solutions1@gmail.com:' + EPASSWD + '@smtp.gmail.com');
 let email = 'kevin@rustybear.com';
 
