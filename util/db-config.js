@@ -55,8 +55,9 @@ const startDatabasePinger = () => {
         sendNotificationEmail(email, error);
         throw new Error(error);
       } else {
-        // uncomment for debugging, otherwise it just clogs the logs
-        console.log(body);
+        // uncomment for debugging only, otherwise it just clogs the logs
+        // which you can find at /var/log/nodejs/nodejs.log
+        // console.log(body);
       }
     });
   });
