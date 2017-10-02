@@ -1,6 +1,7 @@
 'use strict';
 
 const request = require("request");
+const nodemailer = require('nodemailer');
 const dbconfig = require('./db-config');
 const firebase = require('firebase');
 const schedule = require('node-schedule');
@@ -12,6 +13,23 @@ require('firebase/database');
  * Generate dummy calls every hour on the minute
  * @param {number} rule.minute
  */
+
+let mailTransport = nodemailer.createTransport('smtps://emergency.response.solutions1@gmail.com:P@$$w0rd1@smtp.gmail.com');
+let email = 'kevin@rustybear.com';
+
+// function sendNotificationEmail(email) {
+const sendNotificationEmail = (email, text) => {
+  let mailOptions = {
+    from: '"ERS Errors" <noreply@rustybear.com>',
+    to: email,
+    subject: 'ERROR in ERS code',
+    text: text
+  };
+  return mailTransport.sendMail(mailOptions).then(function() {
+    console.log('An email has been sent to: ' + email);
+  });
+}
+
 const startDummyCalls = () => {
   var rule = new schedule.RecurrenceRule();
   rule.minute = 17;
@@ -20,6 +38,7 @@ const startDummyCalls = () => {
     const tableName = "/ersDispatches/";
     var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1);
     var dummyCall = data.maindata[randomCallNumber];
+
 
     var options = {
       method: 'POST',
@@ -31,11 +50,15 @@ const startDummyCalls = () => {
       }
     };
     request(options, function(error, response, body) {
-      if (error) throw new Error(error);
-      console.log('stop the dummies');
-      console.log(body);
+      if (error) {
+        sendNotificationEmail(email, error);
+        throw new Error(error);
+      } else {
+        console.log(body);
+      }
     });
   });
 }
 
 module.exports = startDummyCalls;
+
