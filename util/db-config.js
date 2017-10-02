@@ -39,13 +39,13 @@ const startDatabasePinger = () => {
 
   schedule.scheduleJob(pinger, function () {
     const tableName = "/ersDispatches/";
-    var getCall = "1";  // make sure there is a call with ID 1 in the database
+    // var getCall = "1";  // make sure there is a call with ID 1 in the database
 
     var options = {
       method: 'GET',
       // url: 'http://localhost:30137/calls',
       url: 'http://gfd.dispatch.rustybear.com/calls',
-      qs: getCall,
+      // qs: getCall,
       headers: {
         'content-type': 'application/x-www-form-urlencoded'
       }
