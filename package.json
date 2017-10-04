@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "dev-webpack": "webpack -d --watch",
     "dev-start": "nodemon ./bin/www",
     "makeDummyCall": "node ./util/callGenerator.js"
   },
@@ -14,13 +15,21 @@
     "express": "~4.15.2",
     "firebase": "^4.4.0",
     "jade": "~1.11.0",
+    "jquery": "^3.2.1",
     "morgan": "~1.8.1",
     "node-schedule": "^1.2.5",
     "nodemailer": "^4.1.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "request": "^2.82.0",
     "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "nodemon": "^1.12.1",
+    "webpack": "^3.6.0"
   }
 }
