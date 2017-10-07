@@ -10,16 +10,14 @@ const tableName = "/ersDispatches/";
 /* GET calls listing. */
 // get a test dispatch that already exists in the ersDispatches collection
 router.get('/', function(req, res, next) {
-  var call = "1";
-  firebase.database().ref(tableName + call).once('value')
+  var calls = firebase.database().ref(tableName).once('value')
     .then(function(snapshot) {
       if (snapshot) {
-        console.log(snapshot.val());
         res.send(snapshot.val());
       } else {
         console.error('ERROR: failed to get a snapshot from Firebase');
       }
-  });
+    });
 });
 
 
