@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "prestart": "webpack --config webpack.config.js",
     "start": "node ./bin/www",
-    "build": "webpack --config webpack.config.js",
     "dev-webpack": "webpack -d --watch",
     "dev-start": "nodemon ./bin/www",
     "makeDummyCall": "node ./util/callGenerator.js"
