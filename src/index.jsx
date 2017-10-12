@@ -5,16 +5,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import $ from "jquery";
-
+import CallList from './CallList.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
       callData: []
     };
-    // this.getCalls = this.getCalls().bind(this);
+    this.getCalls = this.getCalls.bind(this);
   }
 
   componentDidMount() {
@@ -28,7 +27,6 @@ class App extends React.Component {
       dataType: 'json',
       ContentType: 'application/json',
       success: function(calls) {
-        this.setState({data: [1,2,3,4,5]});
         this.setState({callData: calls})
       }.bind(this),
       error: function(jqXHR) {
@@ -39,20 +37,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Call List</h1>
         <div className="app">
-          <ul>
-
-            {this.state.callData}
-
-            {this.state.data.map(function (listValue){
-              return <li>{listValue}</li>;
-            })}
-
-          </ul>
+          <CallList callData={this.state.callData} />
         </div>
-      </div>
     );
   }
 }

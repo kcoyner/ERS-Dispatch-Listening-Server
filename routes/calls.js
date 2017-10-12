@@ -8,12 +8,12 @@ const DEBUG = false;  // set this to true to suppress sending POST requests to F
 const tableName = "/ersDispatches/";
 
 /* GET calls listing. */
-// get a test dispatch that already exists in the ersDispatches collection
 router.get('/', function(req, res, next) {
   var calls = firebase.database().ref(tableName).once('value')
     .then(function(snapshot) {
+      snapshot = Object.keys(snapshot.val()).map(function(k) { return snapshot.val()[k] });
       if (snapshot) {
-        res.send(snapshot.val());
+        res.send(snapshot);
       } else {
         console.error('ERROR: failed to get a snapshot from Firebase');
       }
