@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Greenwich Fire Department Dispatch Services' });
+  res.render();
 });
 
 module.exports = router;
