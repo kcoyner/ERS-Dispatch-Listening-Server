@@ -27,7 +27,9 @@ class App extends React.Component {
       dataType: 'json',
       ContentType: 'application/json',
       success: function(calls) {
-        this.setState({callData: calls})
+        this.setState({
+          callData: calls
+        })
       }.bind(this),
       error: function(jqXHR) {
         console.log('AJAX ERROR: ', jqXHR);
@@ -37,10 +39,10 @@ class App extends React.Component {
 
   render() {
     return (
-        <div className="app">
-          <CallList callData={this.state.callData} />
-        </div>
-    );
+      <div className="app">
+        <CallList callData={ this.state.callData } />
+      </div>
+      );
   }
 }
 
