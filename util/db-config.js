@@ -1,11 +1,18 @@
+/*
+ * util/db-config.js
+ *
+ */
+
+const process = require('process');
 var express = require('express');
 var request = require('request');
 var firebase = require('firebase');
 require('firebase/database');
 const schedule = require('node-schedule');
+const API_KEY = process.env.API_KEY;
 
 var firebase_cred = {
-    apiKey: "AIzaSyAyscBTLhOFfz3rWvxCcg9Woyj5zJAKy9U",
+    apiKey: API_KEY,
     authDomain: "ers-dispatch.firebaseapp.com",
     databaseURL: "https://ers-dispatch.firebaseio.com",
     projectId: "ers-dispatch",
