@@ -7,3 +7,4 @@ Screenshot-AWS.png
 !.elasticbeanstalk/*.global.yml
 
 public/bundle.js
+key
