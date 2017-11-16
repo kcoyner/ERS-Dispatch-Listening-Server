@@ -9,7 +9,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var request = require('request');
-var dbconfig = require('./util/db-config');
 var schedule = require('node-schedule');
 var data = require('./util/dummy_data');
 
@@ -18,15 +17,6 @@ var users = require('./routes/users');
 var calls = require('./routes/calls');
 
 const startDummyCalls = require('./util/callGenerator.js');
-
-var admin = require('firebase-admin');
-var serviceAccount = require("./key/ers-dispatch-firebase-adminsdk-08k8q-3c9e3d13f9.json");
-
-var firebase_cred = {
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://ers-dispatch.firebaseio.com",
-}
-admin.initializeApp(firebase_cred);
 
 var app = express();
 
