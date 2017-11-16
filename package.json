@@ -17,6 +17,7 @@
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
+    "debug-log": "^1.0.1",
     "express": "~4.15.2",
     "firebase": "^4.4.0",
     "firebase-admin": "^5.5.0",
