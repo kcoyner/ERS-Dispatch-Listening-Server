@@ -5,17 +5,14 @@
  *
  */
 
+const data = require('./dummy_data');
+const nodemailer = require('nodemailer');
 const process = require('process');
 const request = require("request");
-const nodemailer = require('nodemailer');
-const dbconfig = require('./db-config');
-const firebase = require('firebase');
 const schedule = require('node-schedule');
-const data = require('./dummy_data');
-
-require('firebase/database');
 
 const EPASSWD = process.env.EPASSWD;
+
 let mailTransport = nodemailer.createTransport('smtps://emergency.response.solutions1@gmail.com:' + EPASSWD + '@smtp.gmail.com');
 let email = 'kevin@rustybear.com';
 
@@ -38,7 +35,7 @@ const sendNotificationEmail = (email, text) => {
  */
 const startDummyCalls = () => {
   var rule = new schedule.RecurrenceRule();
-  rule.minute = 10;
+  rule.minute = 45;
 
   schedule.scheduleJob(rule, function () {
     const tableName = "/ersDispatches/";

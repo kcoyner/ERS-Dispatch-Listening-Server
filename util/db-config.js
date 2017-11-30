@@ -3,34 +3,17 @@
  *
  */
 
-const process = require('process');
-var express = require('express');
-var request = require('request');
-var firebase = require('firebase');
-require('firebase/database');
+const request = require('request');
 const schedule = require('node-schedule');
-const API_KEY = process.env.API_KEY;
 
-var firebase_cred = {
-    apiKey: API_KEY,
-    authDomain: "ers-dispatch.firebaseapp.com",
-    databaseURL: "https://ers-dispatch.firebaseio.com",
-    projectId: "ers-dispatch",
-    storageBucket: "ers-dispatch.appspot.com",
-    messagingSenderId: "412226656783"
+const admin = require('firebase-admin');
+const serviceAccount = require("../key/ers-dispatch-firebase-adminsdk-08k8q-3c9e3d13f9");
+const firebase_cred = {
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://ers-dispatch.firebaseio.com",
 }
-
-firebase.initializeApp(firebase_cred);
-
-firebase.auth().signInWithEmailAndPassword('emergency.response.solutions1@gmail.com', 'password')
-.then(function(){
-  firebase.auth().onAuthStateChanged(function(user) {
-    console.log('Logged in as: ', user.email);
-  });
-})
-.catch(function(error) {
-  console.log(error);
-});
+admin.initializeApp(firebase_cred);
+const db = admin.database();
 
 /**
  * Generate a periodic GET request to ping Firebase to keep it alert
@@ -46,21 +29,22 @@ const startDatabasePinger = () => {
 
   schedule.scheduleJob(pinger, function () {
     const tableName = "/ersDispatches/";
-    // var getCall = "1";  // make sure there is a call with ID 1 in the database
 
     var options = {
       method: 'GET',
       // url: 'http://localhost:30137/calls',
       url: 'http://gfd.dispatch.rustybear.com/calls',
-      // qs: getCall,
       headers: {
         'content-type': 'application/x-www-form-urlencoded'
       }
     };
+
     request(options, function(error, response, body) {
       if (error) {
-        sendNotificationEmail(email, error);
         throw new Error(error);
+        console.log('ERROR: not a proper ping');
+      } else if (body === '') {
+        console.log('ERROR: an empty body was returned');
       } else {
         // uncomment for debugging only, otherwise it just clogs the logs
         // which you can find at /var/log/nodejs/nodejs.log
@@ -72,5 +56,5 @@ const startDatabasePinger = () => {
 
 startDatabasePinger();
 
-module.exports = firebase_cred;
+module.exports = db;
 
