@@ -42,7 +42,7 @@ class App extends React.Component {
       <div className="app">
         <CallList callData={ this.state.callData } />
       </div>
-      );
+    );
   }
 }
 
