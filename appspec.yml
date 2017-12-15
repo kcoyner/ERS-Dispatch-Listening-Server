@@ -6,7 +6,7 @@ files:
 hooks:
   BeforeInstall:
     - location: scripts/stop_server.sh
-    - location: scripts/delete_old_files.sh
+    - location: scripts/prepare_server.sh
       runas: root
   AfterInstall:
     - location: scripts/change_permissions.sh
