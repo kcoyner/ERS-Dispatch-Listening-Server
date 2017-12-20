@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "prestart": "webpack --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
     "start": "node ./bin/www",
     "dev-webpack": "webpack -d --watch",
     "dev-start": "nodemon ./bin/www",

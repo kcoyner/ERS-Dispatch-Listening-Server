@@ -35,6 +35,7 @@ const sendNotificationEmail = (email, text) => {
  */
 const startDummyCalls = () => {
   var rule = new schedule.RecurrenceRule();
+  rule.hour = 12;
   rule.minute = 45;
 
   schedule.scheduleJob(rule, function () {
