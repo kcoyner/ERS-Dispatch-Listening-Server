@@ -15,6 +15,7 @@ var data = require('./util/dummy_data');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var calls = require('./routes/calls');
+var api = require('./routes/api');
 
 const startDummyCalls = require('./util/callGenerator.js');
 
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/calls', calls);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

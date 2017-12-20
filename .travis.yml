@@ -26,7 +26,7 @@ deploy:
   skip_cleanup: true
   on: &3
     repo: Emergency-Response-Solutions/ERS-Dispatch-Listening-Server
-    branch: master
+    branch: production
   bucket: ers-dispatch
   upload-dir: production
   region: us-east-1
