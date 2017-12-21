@@ -33,8 +33,8 @@ app.use(logger('dev'));
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(bodyParser.raw({type: 'application/*' }));
-
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

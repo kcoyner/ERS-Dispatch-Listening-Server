@@ -5,7 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../util/db-config');
-const tableName = "/ersDispatches/";
+const tableName = '/ersDispatches/';
 
 const DEBUG = false; // set this to true to suppress sending POST requests to Firebase
 
@@ -13,7 +13,7 @@ const DEBUG = false; // set this to true to suppress sending POST requests to Fi
 router.get('/', function(req, res, next) {
   var calls = db.ref(tableName).once('value')
     .then(function(snapshot) {
-      snapshot = Object.keys(snapshot.val()).map(function(k) { return snapshot.val()[k] });
+      snapshot = Object.keys(snapshot.val()).map(function(k) { return snapshot.val()[k]; });
       if (snapshot) {
         res.send(snapshot);
       } else {
@@ -22,16 +22,17 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
 /* POST calls listing. */
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
+
   let callQuery = req.body;
-  // let callQuery = JSON.stringify(req.body);
 
   if (DEBUG === true) {
     res.send(`DEBUG:  Your POST of ${callQuery} was successful but was not sent to Firebase`);
   } else {
 
-    var newCall = db.ref(tableName).push(callQuery, error => {
+    var newCall = db.ref(tableName).push(JSON.parse(callQuery), error => {
       if (error) {
         console.log(error);
         res.sendStatus(500);
