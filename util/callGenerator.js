@@ -11,6 +11,10 @@ const process = require('process');
 const request = require('request');
 const schedule = require('node-schedule');
 
+var dateformat = require('date-fns/format');
+var today = new Date();
+today = dateformat(today, 'YYMMDD HH:mm');
+
 const EPASSWD = process.env.EPASSWD;
 
 let mailTransport = nodemailer.createTransport('smtps://emergency.response.solutions1@gmail.com:' + EPASSWD + '@smtp.gmail.com');
@@ -37,12 +41,13 @@ const sendNotificationEmail = (email, text) => {
 const startDummyCalls = () => {
   var rule = new schedule.RecurrenceRule();
   rule.hour = 22;
-  rule.minute = 15;
+  rule.minute = 35;
 
   schedule.scheduleJob(rule, function() {
-    const tableName = "/ersDispatches/";
+    const tableName = '/ersDispatches/';
     var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1);
     var dummyCall = data.maindata[randomCallNumber];
+    dummyCall.timeout = today;
 
     var options = {
       method: 'POST',
@@ -63,4 +68,6 @@ const startDummyCalls = () => {
     });
   });
 };
-module.exports = { startDummyCalls: startDummyCalls };
+module.exports = {
+  startDummyCalls: startDummyCalls
+};
