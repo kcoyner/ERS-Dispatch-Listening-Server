@@ -40,7 +40,7 @@ const sendNotificationEmail = (email, text) => {
  */
 const startDummyCalls = () => {
   var rule = new schedule.RecurrenceRule();
-  rule.hour = 22;
+  rule.hour = 12;
   rule.minute = 35;
 
   schedule.scheduleJob(rule, function() {
