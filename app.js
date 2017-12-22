@@ -17,7 +17,7 @@ var users = require('./routes/users');
 var calls = require('./routes/calls');
 var api = require('./routes/api');
 
-const startDummyCalls = require('./util/callGenerator.js');
+const callMaker = require('./util/callGenerator.js');
 
 var app = express();
 
@@ -64,7 +64,7 @@ app.use(function(err, req, res, next) {
 // start creating dummy calls
 // comment out once live data is received
 // see ./util/callGenerator.js
-startDummyCalls();
+callMaker.startDummyCalls();
 
 module.exports = app;
 

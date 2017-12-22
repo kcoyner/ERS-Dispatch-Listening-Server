@@ -8,7 +8,7 @@
 const data = require('./dummy_data');
 const nodemailer = require('nodemailer');
 const process = require('process');
-const request = require("request");
+const request = require('request');
 const schedule = require('node-schedule');
 
 const EPASSWD = process.env.EPASSWD;
@@ -27,26 +27,26 @@ const sendNotificationEmail = (email, text) => {
   return mailTransport.sendMail(mailOptions).then(function() {
     console.log('An email has been sent to: ' + email);
   });
-}
+};
 
 /**
- * Generate dummy calls every hour on the minute
+ * Generate dummy calls on hour and minute
+ * @param {number} rule.hour
  * @param {number} rule.minute
  */
 const startDummyCalls = () => {
   var rule = new schedule.RecurrenceRule();
-  rule.hour = 12;
-  rule.minute = 45;
+  rule.hour = 22;
+  rule.minute = 15;
 
-  schedule.scheduleJob(rule, function () {
+  schedule.scheduleJob(rule, function() {
     const tableName = "/ersDispatches/";
     var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1);
     var dummyCall = data.maindata[randomCallNumber];
 
-
     var options = {
       method: 'POST',
-      // url: 'http://localhost:30137/calls',
+      // url: 'http://localhost:1337/calls',
       url: 'http://gfd.dispatch.rustybear.com/calls',
       qs: dummyCall,
       headers: {
@@ -62,7 +62,5 @@ const startDummyCalls = () => {
       }
     });
   });
-}
-
-module.exports = startDummyCalls;
-
+};
+module.exports = { startDummyCalls: startDummyCalls };
