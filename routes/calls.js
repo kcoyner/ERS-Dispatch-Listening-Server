@@ -5,15 +5,17 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../util/db-config');
-const tableName = "/ersDispatches/";
+const tableName = '/ersDispatches/';
 
-const DEBUG = false;  // set this to true to suppress sending POST requests to Firebase
+const DEBUG = false; // set this to true to suppress sending POST requests to Firebase
 
 /* GET calls listing. */
 router.get('/', function(req, res, next) {
   var calls = db.ref(tableName).once('value')
     .then(function(snapshot) {
-      snapshot = Object.keys(snapshot.val()).map(function(k) { return snapshot.val()[k] });
+      snapshot = Object.keys(snapshot.val()).map(function(k) {
+        return snapshot.val()[k];
+      });
       if (snapshot) {
         res.send(snapshot);
       } else {
@@ -22,21 +24,37 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
+const sendToFirebase = (res, tableName, data) => {
+  let newCall = db.ref(tableName).push(data, error => {
+    if (error) {
+      console.log(error);
+      res.sendStatus(500);
+    } else {
+      var newKey = newCall.getKey();
+      data = JSON.stringify(data);
+      res.send(`Your POST: ${data} with the new Key: ${newKey} was successful`);
+    }
+  });
+};
+
 /* POST calls listing. */
-router.post('/', function(req, res, next) {
-  let callQuery = JSON.stringify(req.query);
-  if (DEBUG === true) {
-    res.send(`DEBUG:  Your POST of ${callQuery} was successful but was not sent to Firebase`);
+router.post('/', function(req, res) {
+
+  let callQuery = null;
+
+  if (Object.values(req.query).length !== 0) {
+    /* x-www-form-urlencoded, therefore use req.query */
+    callQuery = req.query;
   } else {
-    var newCall = db.ref(tableName).push(req.query, error => {
-      if (error) {
-        console.log(error);
-        res.sendStatus(500);
-      } else {
-        var newKey = newCall.getKey();
-        res.send(`Your POST: ${callQuery} with the new Key: ${newKey} was successful`);
-      }
-    });
+    /* raw, therefore use req.body and JSON.parse it */
+    callQuery = JSON.parse(req.body);
+  }
+
+  if (DEBUG === true) {
+    res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`);
+  } else {
+    sendToFirebase(res, tableName, callQuery);
   }
 });
 
