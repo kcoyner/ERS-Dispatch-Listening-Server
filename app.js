@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var schedule = require('node-schedule');
 var data = require('./util/dummy_data');
+var cors = require('cors');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -27,6 +28,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(cors());
 app.use(logger('dev'));
 // app.use(bodyParser.json());
 
