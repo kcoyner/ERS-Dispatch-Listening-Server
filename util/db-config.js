@@ -29,7 +29,7 @@ const startDatabasePinger = () => {
   pinger.second = 40;
 
   schedule.scheduleJob(pinger, function () {
-    const tableName = '/ersDispatches/';
+    const tableName = '/gfdDispatches/';
 
     var options = {
       method: 'GET',

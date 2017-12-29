@@ -44,7 +44,7 @@ const startDummyCalls = () => {
   rule.minute = 35;
 
   schedule.scheduleJob(rule, function() {
-    const tableName = '/ersDispatches/';
+    const tableName = '/gfdDispatches/';
     var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1);
     var dummyCall = data.maindata[randomCallNumber];
     dummyCall.timeout = today;
