@@ -7,7 +7,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../util/db-config');
-const tableName = '/ersDispatches/';
+const tableName = '/gfdDispatches/';
 
 router.get('/', (req, res) => {
 /**
