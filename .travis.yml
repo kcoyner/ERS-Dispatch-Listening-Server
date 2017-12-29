@@ -57,8 +57,8 @@ deploy:
   bucket: ers-dispatch
   key: testing/latestTravis.zip
   bundle_type: zip
-  application: ersDispatch-CodeDeploy
-  deployment_group: ersDispatch-CodeDeployGroup
+  application: ersDispatch-CodeDeploy-testing
+  deployment_group: ersDispatch-CodeDeploy-testing-Group
   region: us-east-1
   on: *2
 
