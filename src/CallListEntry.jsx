@@ -2,12 +2,14 @@
  * src/CallListEntry.jsx
  */
 
-import React from "react";
+import React from 'react';
 
 const CallListEntry = (props) => (
   <div className="call-row">
     <div className="call-data">
-      { props.callTimeout }
+      { props.callTimeout.split(' ')[1].split(':').slice(0, 2).join(':') }
+      &nbsp;
+      { props.callTimeout.split(' ')[0].split('-').slice(0, 2).join('-') }
     </div>
     <div className="call-data">
       { props.callDescription }
@@ -16,22 +18,28 @@ const CallListEntry = (props) => (
       { props.callDistrict }
     </div>
     <div className="call-data">
-      { props.callStreetNumber }
+      { props.callLocation }
     </div>
     <div className="call-data">
-      { props.callStreetName }
+      { props.callLocation === props.callPremiseName ?
+        '' :
+        props.callPremiseName
+      }
     </div>
     <div className="call-data">
-      { props.callCrossStreets }
+      { props.callCrossStreets.split(' ').splice(3) }
     </div>
     <div className="call-data">
-      { props.callAssignment }
+      { props.callAssignment.split(',').slice(1) }
     </div>
     <div className="call-data">
-      { props.callRadioFreq }
+      { props.callRadioFreq.split(',')[0] }
     </div>
     <div className="call-data">
-      { props.callMap }
+      { props.callMap.split(' ')[2] }
+    </div>
+    <div className="call-data">
+      { props.callRemarks }
     </div>
   </div>
 

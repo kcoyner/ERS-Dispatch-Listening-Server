@@ -8,7 +8,7 @@
     "start": "node ./bin/www",
     "dev-webpack": "webpack -d --watch",
     "dev-start": "nodemon ./bin/www",
-    "makeDummyCall": "node ./util/callGenerator.js"
+    "sendDummyCall": "node ./util/sendDummyCall.js"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -17,6 +17,8 @@
     "babel-preset-react": "^6.24.1",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
+    "cors": "2.8.4",
+    "date-fns": "^1.29.0",
     "debug": "~2.6.3",
     "debug-log": "^1.0.1",
     "dotenv": "4.0.0",

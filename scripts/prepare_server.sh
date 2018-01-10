@@ -21,6 +21,9 @@ aws s3 cp s3://ers-dispatch/scripts/ers-dispatch-firebase-adminsdk-08k8q-3c9e3d1
 # Get environment variables and inject into .env
 aws s3 cp s3://ers-dispatch/scripts/environment-vars.txt /home/ubuntu/ersdispatch/.env
 
+# Get tmux.conf because it is so useful
+aws s3 cp s3://ers-dispatch/scripts/tmux.conf /home/ubuntu/.tmux.conf
+
 service nginx restart
 
 # This creates a default home page although nginx redirects it away to our node app
