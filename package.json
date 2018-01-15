@@ -8,6 +8,7 @@
     "start": "node ./bin/www",
     "dev-webpack": "webpack -d --watch",
     "dev-start": "nodemon ./bin/www",
+    "reset-db": "bash ./scripts/reset_db.sh",
     "sendDummyCall": "node ./util/sendDummyCall.js"
   },
   "dependencies": {
