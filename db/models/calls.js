@@ -1,11 +1,12 @@
-/*
+/**
  * db/models/calls.js
  *
  */
+'use strict'
 
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
+
 module.exports = (sequelize, DataTypes) => {
-
   return sequelize.define('Calls', {
     call_id: {
       type: Sequelize.INTEGER,
@@ -29,68 +30,78 @@ module.exports = (sequelize, DataTypes) => {
       // call_category
       // STILL ALARM
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     call_description: {
       // call_description
       // STILL ALARM
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     call_type: {
       // call_type
       // 801
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     cfs_no: {
       // cfs_no  -- not used in this app
       // 1800001672
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     cfs_remark: {
       // cfs_remark
       // WATER CONDITION IN THE HOME - BROKEN WATER PIPE
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     city: {
       // city
       // Cos Cob
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     dispatch_fire: {
       // dispatch_fire -- not used in this app
       // 1900-01-01T00:00:00
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     latitude: {
       // latitude
       // 41.0401\r
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     location: {
       // location
       // 00084  RIVER RD
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     longitude: {
       // longitude
       // -73.50401\r
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
     },
     premise_name: {
       // premise_name -- not always supplied from Dispatch
       // 84 RIVER RD
       type: Sequelize.STRING,
       allowNull: false,
-      defaultValue: null,
+      defaultValue: null
     },
     priority_amb: {
       // priority_amb

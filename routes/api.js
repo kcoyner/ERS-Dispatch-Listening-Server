@@ -4,10 +4,13 @@
  *
  */
 
-const express = require('express');
-const router = express.Router();
-const db = require('../util/db-config');
-const tableName = '/gfdDispatches/';
+const express = require('express')
+const router = express.Router()
+const db = require('../util/db-config')  // firebase
+const models = require('../db/models')   // postgresql
+const tableName = '/gfdDispatches/'
+
+console.log('DB-postgres: ', models)
 
 router.get('/', (req, res) => {
 /**
@@ -17,20 +20,20 @@ router.get('/', (req, res) => {
  * @returns {string} snapshot call details
  */
   if (req.query.code) {
-    var code = req.query.code;
+    var code = req.query.code
     db.ref(`${tableName}${code}`).once('value')
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         if (snapshot) {
-          console.log(snapshot.val());
-          res.send(JSON.stringify(snapshot.val()));
+          console.log(snapshot.val())
+          res.send(JSON.stringify(snapshot.val()))
         }
       })
-      .catch(function(err) {
-        res.send(err);
-      });
+      .catch(function (err) {
+        res.send(err)
+      })
   } else {
-    res.send('Please include key');
+    res.send('Please include key')
   }
-});
+})
 
-module.exports = router;
+module.exports = router

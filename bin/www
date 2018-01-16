@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('gfd-dispatch:server');
 var http = require('http');
+const models = require('../db/models')
 
 /**
  * Get port from environment and store in Express.
@@ -25,6 +26,14 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
+// TODO: uncomment this to test postgres hook up
+// models.sequelize.sync().then(function {
+//   server.listen(port);
+//   server.on('error', onError);
+//   server.on('listening', onListening);
+// })
+
+// TODO: comment this out when testing postgres
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
