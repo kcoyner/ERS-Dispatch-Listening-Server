@@ -1,4 +1,4 @@
-/*
+/**
  *  db/config.js
  */
 
@@ -9,10 +9,13 @@ const dotenv = require('dotenv').config();
 const calls = require('./models/calls');
 
 const DBPASSWD = process.env.DBPASSWD_TESTING;
+const HOST = 'stn4.homelinux.com'
+const IS_CONN_SSL = false // for AWS use true, for localhost use false
 
 const sequelize = new Sequelize('gfddispatch', 'webAppLogin', DBPASSWD, {
-  host: 'stn4.homelinux.com',
+  host: HOST,
   dialect: 'postgres',
+  dialectOptions: { ssl: IS_CONN_SSL },
   pool: {
     max: 5,
     min: 0,
