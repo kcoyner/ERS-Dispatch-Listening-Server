@@ -8,10 +8,8 @@ var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
-var request = require('request')
-var schedule = require('node-schedule')
-var data = require('./util/dummy_data')
 var cors = require('cors')
+var requestIp = require('request-ip')
 
 var index = require('./routes/index')
 var users = require('./routes/users')
@@ -26,15 +24,16 @@ var app = express()
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 
-// uncomment after placing your favicon in /public
+// middleware
+// TODO: uncomment next line after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(cors())
 app.use(logger('dev'))
-// app.use(bodyParser.json());
+app.use(requestIp.mw())
 
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json({ type: 'application/*+json' }))
-app.use(bodyParser.raw({type: 'application/*' }))
+app.use(bodyParser.raw({ type: 'application/*' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cookieParser())
