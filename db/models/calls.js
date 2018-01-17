@@ -7,7 +7,7 @@
 const Sequelize = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Calls', {
+  return sequelize.define('calls', {
     call_id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
@@ -18,7 +18,15 @@ module.exports = (sequelize, DataTypes) => {
       // UnitList - also contains radio channel as first item
       // CH1A, E5, E2
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: null
+    },
+    radio_freq: {
+      // UnitList - also contains assigned engines as remaining items
+      // CH1A, E5, E2
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: null
     },
     apt_no: {
       // apt_no
