@@ -7,10 +7,8 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config')  // firebase
-const models = require('../db/models')   // postgresql
+// const models = require('../db/models')   // postgresql
 const tableName = '/gfdDispatches/'
-
-console.log('DB-postgres: ', models)
 
 router.get('/', (req, res) => {
 /**

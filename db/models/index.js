@@ -13,10 +13,11 @@ const DBPASSWD_TESTING = process.env.DBPASSWD_TESTING
 
 // Initialize database settings
 var db = {}
-var dbHost = 'stn4.homelinux.com'
-// var dbHost = 'pca.homelinux.com'
 const DBNAME = 'gfddispatch'
 const DBUSER = 'webapplogin'
+
+// DB settings set with environment variables
+var dbHost = ''
 var dbPasswd = ''
 var isDbConnSSL = false // for AWS use true, for localhost use false
 

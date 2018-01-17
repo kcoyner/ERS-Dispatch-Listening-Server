@@ -5,7 +5,6 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config') // firebase
-// const DB = require('../db/models')      // postgres
 const models = require('../db/models')
 const tableName = '/gfdDispatches/'
 
@@ -15,6 +14,7 @@ const DEBUG = false // set this to true to suppress sending POST requests to Fir
 router.get('/', function (req, res, next) {
   db.ref(tableName).once('value')
     .then(function (snapshot) {
+      // this is firebase
       snapshot = Object.keys(snapshot.val()).map(function (k) {
         return snapshot.val()[k]
       })
@@ -24,10 +24,12 @@ router.get('/', function (req, res, next) {
         console.error('ERROR: failed to get a snapshot from Firebase')
       }
     })
-    // TODO: uncomment this when postgresql is up and running
-  // models.calls.all().then(function (callList) {
-  //   console.log(callList)
-  // })
+    .then(function () {
+        // TODO: this is postgresql
+      models.Calls.all().then(function (callList) {
+        console.log('CALLLIST FROM POSTGRES: ', callList)
+      })
+    })
 })
 
 const sendToFirebase = (res, tableName, data) => {

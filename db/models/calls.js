@@ -144,7 +144,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     zip: {
       // zip
-      //
+      // 06830
       type: Sequelize.STRING,
       allowNull: false,
       defaultValue: null
