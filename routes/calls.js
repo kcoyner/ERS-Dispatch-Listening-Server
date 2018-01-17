@@ -5,6 +5,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config') // firebase
+const requestIp = require('request-ip')
 const models = require('../db/models')
 const tableName = '/gfdDispatches/'
 
@@ -27,6 +28,7 @@ router.get('/', function (req, res, next) {
     .then(function () {
         // TODO: this is postgresql
       models.Calls.all().then(function (callList) {
+        console.log('GET THE IP:  requestIp.getClientIp(req): ', requestIp.getClientIp(req));
         console.log('CALLLIST FROM POSTGRES: ', callList)
       })
     })
