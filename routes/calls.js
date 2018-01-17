@@ -27,9 +27,8 @@ router.get('/', function (req, res, next) {
     .then(function () {
         // TODO: this is postgresql
       models.Calls.all().then(function (callList) {
-        // console.log('GET THE IP:: ', requestIp.getClientIp(req));
-        console.log('GET THE IP:: ', req.clientIp);
-        console.log('CALLLIST FROM POSTGRES: ', callList)
+        // console.log('GET THE IP:: ', req.clientIp);
+        // console.log('CALLLIST FROM POSTGRES: ', callList)
       })
     })
 })
@@ -45,6 +44,10 @@ const sendToFirebase = (res, tableName, data) => {
       res.send(`Your POST: ${data} with the new Key: ${newKey} was successful`)
     }
   })
+}
+
+const sendToPostgres = (res, data) => {
+  console.log('THIS IS data FOR POSTGRES: ', data);
 }
 
 // POST calls listing
@@ -63,6 +66,7 @@ router.post('/', function (req, res) {
     res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`)
   } else {
     sendToFirebase(res, tableName, callQuery)
+    sendToPostgres(res, callQuery)
   }
 })
 
