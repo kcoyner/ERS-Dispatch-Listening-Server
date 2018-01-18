@@ -27,8 +27,7 @@ router.get('/', function (req, res, next) {
     .then(function () {
         // TODO: this is postgresql
       models.calls.all().then(function (callList) {
-        // console.log('GET THE IP:: ', req.clientIp);
-        // console.log('CALLLIST FROM POSTGRES: ', callList)
+        console.log('GET THE IP:: ', req.clientIp);
       })
     })
 })
@@ -51,35 +50,42 @@ const sendToPostgres = (res, data) => {
   let radioFreq = data.UnitList.split(',')[0]
   let crossStreet = data.x_street_name.split(' ').splice(3).join(' ')
   let mapRef = data.x_street_name.split(' ').splice(0, 3).join(' ')
-  models.calls
-    .build({
-      assignment: assignment,
-      radio_freq: radioFreq,
-      apt_no: data.apt_no,
-      call_category: data.call_category,
-      call_description: data.call_description,
-      call_type: data.call_type,
-      cfs_no: data.cfs_no,
-      cfs_remark: data.cfs_remark,
-      city: data.city,
-      dispatch_fire: data.dispatch_fire,
-      latitude: data.latitude,
-      location: data.location,
-      longitude: data.longitude,
-      premise_name: data.premise_name,
-      priority_amb: data.priority_amb,
-      priority_fire: data.priority_fire,
-      priority_pol: data.priority_pol,
-      timeout: data.rec_dt,
-      cross_street: crossStreet,
-      map_ref: mapRef,
-      zip: data.zip
-    })
-    .save()
+  let callDetails = {
+    assignment: assignment,
+    radio_freq: radioFreq,
+    apt_no: data.apt_no,
+    call_category: data.call_category,
+    call_description: data.call_description,
+    call_type: data.call_type,
+    cfs_no: data.cfs_no,
+    cfs_remark: data.cfs_remark,
+    city: data.city,
+    dispatch_fire: data.dispatch_fire,
+    latitude: data.latitude,
+    location: data.location,
+    longitude: data.longitude,
+    premise_name: data.premise_name,
+    priority_amb: data.priority_amb,
+    priority_fire: data.priority_fire,
+    priority_pol: data.priority_pol,
+    timeout: data.rec_dt,
+    cross_street: crossStreet,
+    map_ref: mapRef,
+    zip: data.zip
+  }
+  models.calls.create(callDetails)
+  .then(callDetails => {
+    console.log('CALL DETAILS:  ', callDetails)
+  })
+  .catch(error => {
+    // TODO: not sure this is working or correct. creates unhandled promise error
+    // To test, misspell callDetails above
+    throw error
+  })
 }
 
 // POST calls listing
-router.post('/', function (req, res) {
+router.post('/', async function (req, res) {
   let callQuery = null
 
   if (Object.values(req.query).length !== 0) {
@@ -93,8 +99,8 @@ router.post('/', function (req, res) {
   if (DEBUG === true) {
     res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`)
   } else {
+    await sendToPostgres(res, callQuery)
     sendToFirebase(res, tableName, callQuery)
-    sendToPostgres(res, callQuery)
   }
 })
 
