@@ -1,21 +1,21 @@
-'use strict';
+'use strict'
 
 /**
  * util/sendDummyCall.js
  * Sends a dummy call
  *
  */
-const data = require('./dummy_data');
-const request = require('request');
+const data = require('./dummy_data')
+const request = require('request')
 
-var dateformat = require('date-fns/format');
-var today = new Date();
-today = dateformat(today, 'MM-DD-YYYY HH:mm:ss');
+var dateformat = require('date-fns/format')
+var today = new Date()
+today = dateformat(today, 'MM-DD-YYYY HH:mm:ss')
 
-var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1);
-var dummyCall = data.maindata[randomCallNumber];
-dummyCall.rec_dt = today;
-dummyCall.cfs_remark = 'TEST CALL: ' + dummyCall.cfs_remark;
+var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1)
+var dummyCall = data.maindata[randomCallNumber]
+dummyCall.rec_dt = today
+dummyCall.cfs_remark = 'TEST CALL: ' + dummyCall.cfs_remark
 
 const sendDummyCall = () => {
   var options = {
@@ -26,15 +26,14 @@ const sendDummyCall = () => {
     headers: {
       'content-type': 'application/json'
     }
-  };
-  request(options, function(error, response, body) {
+  }
+  request(options, function (error, response, body) {
     if (error) {
-      throw new Error(error);
+      throw new Error(error)
     } else {
-      console.log(body);
+      console.log(body)
     }
-  });
-};
+  })
+}
 
-sendDummyCall();
-
+sendDummyCall()
