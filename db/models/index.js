@@ -24,7 +24,7 @@ var isDbConnSSL = false // for AWS use true, for localhost use false
 
 if (NODE_ENV === 'testing') {
   dbHost = 'pca.homelinux.com'
-  // dbHost = 'stn4.homelinux.com'
+  // dbHost = 'pca.homelinux.com'
   isDbConnSSL = false
   dbPasswd = DBPASSWD_TESTING
 } else if (NODE_ENV === 'production') {
@@ -48,7 +48,7 @@ const sequelize = new Sequelize(DBNAME, DBUSER, dbPasswd, {
   operatorsAliases: false,
   define: {
     charset: 'utf8',
-    timestamps: false
+    timestamps: true
   }
 })
 
