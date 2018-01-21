@@ -37,7 +37,7 @@ deploy:
   key: production/latestTravis.zip
   bundle_type: zip
   application: ersDispatch-CodeDeploy
-  deployment_group: ersDispatch-CodeDeployGroup
+  deployment_group: ersDispatch-CodeDeploy-prod-Group
   region: us-east-1
   on: *3
 - provider: s3
