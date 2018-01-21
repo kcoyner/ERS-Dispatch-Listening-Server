@@ -28,7 +28,7 @@ if (NODE_ENV === 'testing') {
   isDbConnSSL = false
   dbPasswd = DBPASSWD_TESTING
 } else if (NODE_ENV === 'production') {
-  dbHost = 'some-AWS-RDS-server-to-be-determined'
+  dbHost = 'ersdispatch.cguymocs6upp.us-east-1.rds.amazonaws.com'
   isDbConnSSL = true
   dbPasswd = DBPASSWD_PRODUCTION
 } else {
