@@ -36,7 +36,7 @@ deploy:
   bucket: ers-dispatch
   key: production/latestTravis.zip
   bundle_type: zip
-  application: ersDispatch-CodeDeploy
+  application: ersDispatch-CodeDeploy-prod
   deployment_group: ersDispatch-CodeDeploy-prod-Group
   region: us-east-1
   on: *3
