@@ -162,12 +162,12 @@ module.exports = (sequelize, DataTypes) => {
       // }
     },
     created_at: {
-      type: Sequelize.TIMESTAMP,
+      type: Sequelize.TIMESTAMP WITH TIME ZONE,
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       allowNull: false
     },
     updated_at: {
-      type: Sequelize.TIMESTAMP,
+      type: Sequelize.TIMESTAMP WITH TIME ZONE,
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       allowNull: false
     }
