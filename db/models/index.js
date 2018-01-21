@@ -23,8 +23,8 @@ var dbPasswd = ''
 var isDbConnSSL = false // for AWS use true, for localhost use false
 
 if (NODE_ENV === 'testing') {
-  dbHost = 'pca.homelinux.com'
-  // dbHost = 'stn4.homelinux.com'
+  // dbHost = 'pca.homelinux.com'
+  dbHost = 'stn4.homelinux.com'
   isDbConnSSL = false
   dbPasswd = DBPASSWD_TESTING
 } else if (NODE_ENV === 'production') {
@@ -32,7 +32,7 @@ if (NODE_ENV === 'testing') {
   isDbConnSSL = true
   dbPasswd = DBPASSWD_PRODUCTION
 } else {
-  console.error('ERROR: Could not connect to DB')
+  console.error('ERROR: Could not connect to DB. Set NODE_ENV to either \'production\' or \'testing\'.')
 }
 
 const sequelize = new Sequelize(DBNAME, DBUSER, dbPasswd, {
