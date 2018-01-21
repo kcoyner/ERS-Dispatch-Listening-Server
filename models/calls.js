@@ -161,12 +161,12 @@ module.exports = (sequelize, DataTypes) => {
       //   max: 10
       // }
     },
-    createdAt: {
+    created_at: {
       type: Sequelize.TIMESTAMP,
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       allowNull: false
     },
-    updatedAt: {
+    updated_at: {
       type: Sequelize.TIMESTAMP,
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       allowNull: false
