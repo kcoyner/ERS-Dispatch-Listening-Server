@@ -22,7 +22,9 @@ CREATE TABLE "calls" (
         "timeout" varchar NOT NULL,
         "cross_street" varchar NOT NULL,
         "map_ref" varchar NOT NULL,
-        "zip" varchar
+        "zip" varchar NOT NULL,
+        "updated_at" timestamp with time zone NOT NULL,
+        "created_at" timestamp with time zone NOT NULL
 ) WITH (
   OIDS=FALSE
 );
