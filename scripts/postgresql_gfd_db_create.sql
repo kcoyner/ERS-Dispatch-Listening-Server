@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS calls CASCADE;
 CREATE TABLE "calls" (
         "call_id" serial NOT NULL UNIQUE,
         "assignment" varchar NOT NULL, -- first element is radio channel, all that follows are apparatus
+        "radio_freq" varchar NOT NULL,
         "apt_no" varchar NOT NULL,
         "call_category" varchar NOT NULL,
         "call_description" varchar NOT NULL,
