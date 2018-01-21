@@ -1,5 +1,5 @@
 /**
- * db/models/calls.js
+ * models/calls.js
  *
  */
 'use strict'

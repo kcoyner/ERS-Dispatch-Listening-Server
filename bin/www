@@ -6,7 +6,7 @@
 var app = require('../app')
 var debug = require('debug')('gfd-dispatch:server')
 var http = require('http')
-const models = require('../db/models')
+const models = require('../models')
 const dotenv = require('dotenv').config()
 
 /**
