@@ -76,13 +76,13 @@ const sendToPostgres = (res, data) => {
     zip: data.zip
   }
   models.calls.create(callDetails)
-  .then(callDetails => {
-    console.log('CALL DETAILS:  ', callDetails)
+  .then(item => {
+    console.log('NEW CALL DETAILS:  ', item)
   })
   .catch(error => {
     // TODO: not sure this is working or correct. creates unhandled promise error
     // To test, misspell callDetails above
-    throw error
+    console.error(error)
   })
 }
 

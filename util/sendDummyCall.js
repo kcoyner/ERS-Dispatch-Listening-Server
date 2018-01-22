@@ -9,16 +9,16 @@ const data = require('./dummy_data')
 const request = require('request')
 
 var dateformat = require('date-fns/format')
-var today = new Date()
-today = dateformat(today, 'MM-DD-YYYY HH:mm:ss')
-
-var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1)
-var dummyCall = data.maindata[randomCallNumber]
-dummyCall.rec_dt = today
-dummyCall.test_call = true
-dummyCall.cfs_remark = 'TEST CALL: ' + dummyCall.cfs_remark
 
 const sendDummyCall = () => {
+  var today = new Date()
+  today = dateformat(today, 'MM-DD-YYYY HH:mm:ss')
+  var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1)
+  var dummyCall = data.maindata[randomCallNumber]
+  dummyCall.rec_dt = today
+  dummyCall.test_call = true
+  dummyCall.cfs_remark = 'TEST CALL: ' + dummyCall.cfs_remark
+
   var options = {
     method: 'POST',
     // url: 'http://localhost:1337/calls',
