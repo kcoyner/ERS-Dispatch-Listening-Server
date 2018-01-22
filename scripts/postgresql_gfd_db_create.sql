@@ -24,7 +24,8 @@ CREATE TABLE "calls" (
         "map_ref" varchar NOT NULL,
         "zip" varchar NOT NULL,
         "updated_at" timestamp with time zone NOT NULL,
-        "created_at" timestamp with time zone NOT NULL
+        "created_at" timestamp with time zone NOT NULL,
+        "test_call" boolean NOT NULL DEFAULT false
 ) WITH (
   OIDS=FALSE
 );

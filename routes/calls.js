@@ -71,6 +71,7 @@ const sendToPostgres = (res, data) => {
     timeout: data.rec_dt,
     cross_street: crossStreet,
     map_ref: mapRef,
+    test_call: data.test_call,
     zip: data.zip
   }
   models.calls.create(callDetails)
@@ -97,6 +98,7 @@ router.post('/', async function (req, res) {
   }
 
   if (DEBUG === true) {
+    await sendToPostgres(res, callQuery)
     res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`)
   } else {
     await sendToPostgres(res, callQuery)
