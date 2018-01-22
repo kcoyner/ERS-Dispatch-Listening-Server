@@ -150,6 +150,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: null
     },
+    test_call: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
     zip: {
       // zip
       // 06830
