@@ -5,7 +5,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config') // firebase
-const models = require('../db/models')
+const models = require('../models')
 const tableName = '/gfdDispatches/'
 
 const DEBUG = false // set this to true to suppress sending POST requests to Firebase

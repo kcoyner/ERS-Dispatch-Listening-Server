@@ -1,5 +1,5 @@
 /**
- * db/models/calls.js
+ * models/calls.js
  *
  */
 'use strict'
@@ -160,6 +160,16 @@ module.exports = (sequelize, DataTypes) => {
       //   min: 0,
       //   max: 10
       // }
+    },
+    created_at: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      allowNull: false
+    },
+    updated_at: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      allowNull: false
     }
   })
 }

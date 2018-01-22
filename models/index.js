@@ -1,5 +1,5 @@
 /**
- *  db/models/index.js
+ *  models/index.js
  */
 
 const Sequelize = require('sequelize')
@@ -56,7 +56,6 @@ const sequelize = new Sequelize(DBNAME, DBUSER, dbPasswd, {
   }
 })
 
-// fs.readdirSync(__dirname + '/models')
 fs.readdirSync(path.join(__dirname, '/'))
   .filter(function (file) {
     return (file.indexOf('.') !== 0) && (file !== 'index.js')
