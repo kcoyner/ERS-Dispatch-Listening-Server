@@ -23,9 +23,10 @@ CREATE TABLE "calls" (
         "cross_street" varchar NOT NULL,
         "map_ref" varchar NOT NULL,
         "zip" varchar NOT NULL,
-        "updated_at" timestamp with time zone NOT NULL,
-        "created_at" timestamp with time zone NOT NULL,
-        "test_call" boolean NOT NULL DEFAULT false
+        "zip" varchar NOT NULL,
+        "test_call" boolean NOT NULL DEFAULT false,
+        "createdAt" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        "updatedAt" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 ) WITH (
   OIDS=FALSE
 );
