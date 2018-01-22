@@ -151,6 +151,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: null
     },
     test_call: {
+      // t or f
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
@@ -161,10 +162,6 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.STRING,
       allowNull: false,
       defaultValue: null
-      // validate: {
-      //   min: 0,
-      //   max: 10
-      // }
     },
     created_at: {
       type: Sequelize.DATE,

@@ -52,7 +52,7 @@ const sequelize = new Sequelize(DBNAME, DBUSER, dbPasswd, {
   operatorsAliases: false,
   define: {
     charset: 'utf8',
-    timestamps: true
+    timestamps: false
   }
 })
 

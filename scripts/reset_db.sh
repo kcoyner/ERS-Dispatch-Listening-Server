@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# HOST='stn4.homelinux.com'
-HOST='pca.homelinux.com'
+HOST='stn4.homelinux.com'
+# HOST='pca.homelinux.com'
 
 ###### Be extremely careful using this next line.
 ###### It will erase the entire main database.
