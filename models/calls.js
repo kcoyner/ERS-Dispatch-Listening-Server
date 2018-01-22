@@ -151,6 +151,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: null
     },
     test_call: {
+      // t or f
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
@@ -161,20 +162,21 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.STRING,
       allowNull: false,
       defaultValue: null
-      // validate: {
-      //   min: 0,
-      //   max: 10
-      // }
-    },
-    created_at: {
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      allowNull: false
     },
     updated_at: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       allowNull: false
+    },
+    created_at: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      allowNull: false
     }
+  }, {
+    timestamps: true,
+    // rename from sequelize's updatedAt to postgres updated_at
+    updatedAt: 'updated_at',
+    createdAt: 'created_at'
   })
 }

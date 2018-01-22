@@ -27,7 +27,8 @@ router.get('/', function (req, res, next) {
     .then(function () {
         // TODO: this is postgresql
       models.calls.all().then(function (callList) {
-        console.log('GET THE IP:: ', req.clientIp);
+        // console.log('IP:: ', req.clientIp);
+        // console.log('Call List:: ', callList);
       })
     })
 })
