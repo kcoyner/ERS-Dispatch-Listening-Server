@@ -6,7 +6,7 @@
 var app = require('../app')
 var debug = require('debug')('gfd-dispatch:server')
 var http = require('http')
-const models = require('../models')
+// const models = require('../models')
 const dotenv = require('dotenv').config()
 
 /**
@@ -20,15 +20,20 @@ app.set('port', port)
  */
 var server = http.createServer(app)
 
-/**
- * Sync model logic to DB and listen on provided port, on all network interfaces.
- */
-models.sequelize.sync().then(function () {
   server.listen(port)
   server.on('error', onError)
   server.on('listening', onListening)
   console.log('😎   listening on 1337');
-})
+
+// /**
+//  * Sync model logic to DB and listen on provided port, on all network interfaces.
+//  */
+// models.sequelize.sync().then(function () {
+//   server.listen(port)
+//   server.on('error', onError)
+//   server.on('listening', onListening)
+//   console.log('😎   listening on 1337');
+// })
 
 /**
  * Normalize a port into a number, string, or false.

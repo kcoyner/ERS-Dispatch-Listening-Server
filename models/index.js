@@ -1,11 +1,59 @@
 /**
  *  models/index.js
  */
-
 const Sequelize = require('sequelize')
 const fs = require('fs')
 const path = require('path')
 const dotenv = require('dotenv').config()
+var dynamo = require('dynamodb')
+var Joi = require('joi')
+var AWS = dynamo.AWS
+
+AWS.config.loadFromPath('.aws-credentials.json');
+AWS.config.update({region: "us-east-1"});
+
+const Call = dynamo.define('Call', {
+  hashKey : 'cfs_no',
+  rangeKey : 'timeout',
+  // add the timestamp attributes (updatedAt, createdAt)
+  timestamps : true,
+  schema : {
+    cfs_no   : Joi.number(),
+    assignment   : Joi.string().optional().allow(''),
+    radio_freq   : Joi.string().optional().allow(''),
+    apt_no   : Joi.string().optional().allow(''),
+    call_category   : Joi.string().optional().allow(''),
+    call_description   : Joi.string().optional().allow(''),
+    call_type   : Joi.string().optional().allow(''),
+    cfs_remark   : Joi.string().optional().allow(''),
+    city   : Joi.string().optional().allow(''),
+    dispatch_fire   : Joi.string().optional().allow(''),
+    latitude   : Joi.string(),
+    location   : Joi.string().optional().allow(''),
+    longitude   : Joi.string(),
+    premise_name   : Joi.string().optional().allow(''),
+    priority_amb   : Joi.string().optional().allow(''),
+    priority_fire   : Joi.string().optional().allow(''),
+    priority_pol   : Joi.string().optional().allow(''),
+    timeout   : Joi.string(),
+    cross_street   : Joi.string().optional().allow(''),
+    map_ref   : Joi.string().optional().allow(''),
+    test_call   : Joi.boolean().default(false),
+    zip   : Joi.string().optional().allow('')
+  }
+});
+
+
+dynamo.createTables({
+  'Call': {readCapacity: 5, writeCapacity: 5}
+}, function(err) {
+  if (err) {
+    console.log('Error creating tables: ', err);
+  } else {
+    console.log('Tables has been created');
+  }
+});
+
 
 // Retrieve environment variables
 const NODE_ENV = process.env.NODE_ENV
@@ -76,4 +124,4 @@ db.Sequelize = Sequelize
 // db.users.hasMany(db.scores, {foreignKey: 'user_id'});
 // db.scores.belongsTo(db.users, {foreignKey: 'user_id'});
 
-module.exports = db
+module.exports = Call

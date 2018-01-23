@@ -5,10 +5,10 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config') // firebase
-const models = require('../models')
+const Call  = require('../models')
 const tableName = '/gfdDispatches/'
 
-const DEBUG = false // set this to true to suppress sending POST requests to Firebase
+const DEBUG = true // set this to true to suppress sending POST requests to Firebase
 
 // GET calls listing
 router.get('/', function (req, res, next) {
@@ -26,10 +26,10 @@ router.get('/', function (req, res, next) {
     })
     .then(function () {
         // TODO: this is postgresql
-      models.calls.all().then(function (callList) {
+//      models.calls.all().then(function (callList) {
         // console.log('IP:: ', req.clientIp);
         // console.log('Call List:: ', callList);
-      })
+//      })
     })
 })
 
@@ -45,6 +45,49 @@ const sendToFirebase = (res, tableName, data) => {
     }
   })
 }
+
+const sendToDynamo = (res, data) => {
+  // console.log('Call: ', Call);
+  let assignment = data.UnitList.split(',').splice(1).join(' ')
+  let radioFreq = data.UnitList.split(',')[0]
+  let crossStreet = data.x_street_name.split(' ').splice(3).join(' ')
+  let mapRef = data.x_street_name.split(' ').splice(0, 3).join(' ')
+  let cfs_no = Number.parseInt(data.cfs_no)
+  let callDetails = {
+    assignment: assignment,
+    radio_freq: radioFreq,
+    apt_no: data.apt_no,
+    call_category: data.call_category,
+    call_description: data.call_description,
+    call_type: data.call_type,
+    cfs_no: cfs_no,
+    cfs_remark: data.cfs_remark,
+    city: data.city,
+    dispatch_fire: data.dispatch_fire,
+    latitude: data.latitude,
+    location: data.location,
+    longitude: data.longitude,
+    premise_name: data.premise_name,
+    priority_amb: data.priority_amb,
+    priority_fire: data.priority_fire,
+    priority_pol: data.priority_pol,
+    timeout: data.rec_dt,
+    cross_street: crossStreet,
+    map_ref: mapRef,
+    test_call: data.test_call,
+    zip: data.zip
+  }
+  var newCall = new Call(callDetails)
+  // console.log('newCall: ', newCall);
+  newCall.save(function (err) {
+    if (err) {
+      console.log('err: ', err);
+    } else {
+      console.log('created account in DynamoDB', newCall.get('cfs_no'));
+    }
+});
+}
+
 
 const sendToPostgres = (res, data) => {
   let assignment = data.UnitList.split(',').splice(1).join(' ')
@@ -99,10 +142,11 @@ router.post('/', async function (req, res) {
   }
 
   if (DEBUG === true) {
-    await sendToPostgres(res, callQuery)
+    // await sendToPostgres(res, callQuery)
+    await sendToDynamo(res, callQuery)
     res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`)
   } else {
-    await sendToPostgres(res, callQuery)
+    // await sendToPostgres(res, callQuery)
     sendToFirebase(res, tableName, callQuery)
   }
 })
