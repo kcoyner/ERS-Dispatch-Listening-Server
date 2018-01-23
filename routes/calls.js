@@ -5,10 +5,10 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config') // firebase
-const Call  = require('../models')
+const Call = require('../models')
 const tableName = '/gfdDispatches/'
 
-const DEBUG = true // set this to true to suppress sending POST requests to Firebase
+const DEBUG = false // set this to true to suppress sending POST requests to Firebase
 
 // GET calls listing
 router.get('/', function (req, res, next) {
@@ -52,7 +52,7 @@ const sendToDynamo = (res, data) => {
   let radioFreq = data.UnitList.split(',')[0]
   let crossStreet = data.x_street_name.split(' ').splice(3).join(' ')
   let mapRef = data.x_street_name.split(' ').splice(0, 3).join(' ')
-  let cfs_no = Number.parseInt(data.cfs_no)
+  let cfsNo = Number.parseInt(data.cfs_no)
   let callDetails = {
     assignment: assignment,
     radio_freq: radioFreq,
@@ -60,7 +60,7 @@ const sendToDynamo = (res, data) => {
     call_category: data.call_category,
     call_description: data.call_description,
     call_type: data.call_type,
-    cfs_no: cfs_no,
+    cfs_no: cfsNo,
     cfs_remark: data.cfs_remark,
     city: data.city,
     dispatch_fire: data.dispatch_fire,
@@ -78,54 +78,12 @@ const sendToDynamo = (res, data) => {
     zip: data.zip
   }
   var newCall = new Call(callDetails)
-  // console.log('newCall: ', newCall);
   newCall.save(function (err) {
     if (err) {
-      console.log('err: ', err);
+      console.log('err: ', err)
     } else {
-      console.log('created account in DynamoDB', newCall.get('cfs_no'));
+      console.log('created new account in DynamoDB calls: ', newCall.get('call_id'))
     }
-});
-}
-
-
-const sendToPostgres = (res, data) => {
-  let assignment = data.UnitList.split(',').splice(1).join(' ')
-  let radioFreq = data.UnitList.split(',')[0]
-  let crossStreet = data.x_street_name.split(' ').splice(3).join(' ')
-  let mapRef = data.x_street_name.split(' ').splice(0, 3).join(' ')
-  let callDetails = {
-    assignment: assignment,
-    radio_freq: radioFreq,
-    apt_no: data.apt_no,
-    call_category: data.call_category,
-    call_description: data.call_description,
-    call_type: data.call_type,
-    cfs_no: data.cfs_no,
-    cfs_remark: data.cfs_remark,
-    city: data.city,
-    dispatch_fire: data.dispatch_fire,
-    latitude: data.latitude,
-    location: data.location,
-    longitude: data.longitude,
-    premise_name: data.premise_name,
-    priority_amb: data.priority_amb,
-    priority_fire: data.priority_fire,
-    priority_pol: data.priority_pol,
-    timeout: data.rec_dt,
-    cross_street: crossStreet,
-    map_ref: mapRef,
-    test_call: data.test_call,
-    zip: data.zip
-  }
-  models.calls.create(callDetails)
-  .then(item => {
-    console.log('NEW CALL DETAILS:  ', item)
-  })
-  .catch(error => {
-    // TODO: not sure this is working or correct. creates unhandled promise error
-    // To test, misspell callDetails above
-    console.error(error)
   })
 }
 
@@ -142,11 +100,10 @@ router.post('/', async function (req, res) {
   }
 
   if (DEBUG === true) {
-    // await sendToPostgres(res, callQuery)
     await sendToDynamo(res, callQuery)
     res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`)
   } else {
-    // await sendToPostgres(res, callQuery)
+    await sendToDynamo(res, callQuery)
     sendToFirebase(res, tableName, callQuery)
   }
 })
