@@ -22,21 +22,10 @@ var callMaker = require('./util/callGenerator.js')
 
 var app = express()
 
-/** morgan based logs
-    log only 4xx and 5xx responses to console */
+/** morgan - log only 4xx and 5xx responses to console */
 app.use(morgan('dev', {
   skip: function (req, res) { return res.statusCode < 400 }
 }))
-var logDirectory = path.join(__dirname, 'log')
-// ensure log directory exists
-fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
-// create a rotating write stream
-var accessLogStream = rfs('access.log', {
-  interval: '1d', // rotate daily
-  path: logDirectory
-})
-app.use(morgan('combined', {stream: accessLogStream}))
-/** end morgan logs **/
 
 // view engine setup
 // TODO: only used for 404 right now.
