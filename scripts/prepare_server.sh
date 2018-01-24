@@ -21,6 +21,9 @@ aws s3 cp s3://ers-dispatch/scripts/ers-dispatch-firebase-adminsdk-08k8q-3c9e3d1
 # Get environment variables and inject into .env
 aws s3 cp s3://ers-dispatch/scripts/environment-vars.txt /home/ubuntu/ersdispatch/.env
 
+# Get AWS credentials
+aws s3 cp s3://ers-dispatch/scripts/aws-credentials.json /home/ubuntu/ersdispatch/.aws-credentials.json
+
 # Get tmux.conf and bash_aliases because they are useful
 aws s3 cp s3://ers-dispatch/scripts/tmux.conf /home/ubuntu/.tmux.conf
 aws s3 cp s3://ers-dispatch/scripts/bash_aliases /home/ubuntu/.bash_aliases
