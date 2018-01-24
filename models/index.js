@@ -4,9 +4,15 @@
 
 var dynamo = require('dynamodb')
 var AWS = dynamo.AWS
+const dotenv = require('dotenv').config()
 
-AWS.config.loadFromPath('.aws-credentials.json')
-AWS.config.update({region: 'us-east-1'})
+const NODE_ENV = process.env.NODE_ENV
+const AKID = process.env.AWS_ACCESS_KEY_ID
+const SECRET = process.env.AWS_SECRET_ACCESS_KEY
+const REGION = process.env.AWS_REGION
+
+AWS.config.update({accessKeyId: AKID, secretAccessKey: SECRET, region: REGION})
+// AWS.config.loadFromPath('.aws-credentials.json')
 
 var Call = require('./calls')
 
