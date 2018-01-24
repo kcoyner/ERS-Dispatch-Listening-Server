@@ -23,6 +23,7 @@ const sendDummyCall = () => {
     method: 'POST',
     // url: 'http://localhost:1337/calls',
     url: 'https://gfd.dispatch.rustybear.com/calls',
+    // url: 'https://testing.dispatch.rustybear.com/calls',
     qs: dummyCall,
     headers: {
       'content-type': 'application/json'
