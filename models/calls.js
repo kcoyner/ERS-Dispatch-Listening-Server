@@ -35,7 +35,8 @@ const Call = dynamo.define('Call', {
     cross_street: Joi.string().optional().allow(''),
     map_ref: Joi.string().optional().allow(''),
     test_call: Joi.boolean().default(false),
-    zip: Joi.string().optional().allow('')
+    zip: Joi.string().optional().allow(''),
+    slug: Joi.string().optional().allow('')
   }
 })
 

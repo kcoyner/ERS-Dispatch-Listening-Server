@@ -7,6 +7,7 @@
  */
 const data = require('./dummy_data')
 const request = require('request')
+const cuid = require('cuid')
 
 var dateformat = require('date-fns/format')
 
@@ -15,6 +16,7 @@ const sendDummyCall = () => {
   today = dateformat(today, 'MM-DD-YYYY HH:mm:ss')
   var randomCallNumber = Math.floor(Math.random() * data.maindata.length + 1)
   var dummyCall = data.maindata[randomCallNumber]
+  dummyCall.slug = cuid.slug()
   dummyCall.rec_dt = today
   dummyCall.test_call = true
   dummyCall.cfs_remark = 'TEST CALL: ' + dummyCall.cfs_remark
