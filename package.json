@@ -22,6 +22,7 @@
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "cors": "2.8.4",
+    "cuid": "2.0.2",
     "date-fns": "^1.29.0",
     "debug": "~2.6.3",
     "debug-log": "^1.0.1",

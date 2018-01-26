@@ -6,6 +6,7 @@ const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config') // firebase
 const Call = require('../models')
+const cuid = require('cuid')
 const tableName = '/gfdDispatches/'
 
 const DEBUG = false // set this to true to suppress sending POST requests to Firebase
@@ -48,6 +49,7 @@ const sendToFirebase = (res, tableName, data) => {
 
 const sendToDynamo = (res, data) => {
   // console.log('Call: ', Call);
+  let slug = cuid.slug()
   let assignment = data.UnitList.split(',').splice(1).join(' ')
   let radioFreq = data.UnitList.split(',')[0]
   let crossStreet = data.x_street_name.split(' ').splice(3).join(' ')
@@ -75,7 +77,8 @@ const sendToDynamo = (res, data) => {
     cross_street: crossStreet,
     map_ref: mapRef,
     test_call: data.test_call,
-    zip: data.zip
+    zip: data.zip,
+    slug: slug
   }
   var newCall = new Call(callDetails)
   newCall.save(function (err) {
