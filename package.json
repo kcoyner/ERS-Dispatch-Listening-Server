@@ -1,8 +1,14 @@
 {
   "name": "ERS",
   "version": "0.0.2",
-  "engines": { "node" : ">=8.0 <9.0" },
-  "os": [ "darwin", "linux", "!win32" ],
+  "engines": {
+    "node": ">=8.0 <9.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "!win32"
+  ],
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.config.js",
