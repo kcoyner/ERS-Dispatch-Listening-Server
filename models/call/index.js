@@ -1,5 +1,5 @@
 /**
- *  models/index.js
+ *  models/call/index.js
  */
 
 var dynamo = require('dynamodb')
@@ -14,15 +14,15 @@ const REGION = process.env.AWS_REGION
 AWS.config.update({accessKeyId: AKID, secretAccessKey: SECRET, region: REGION})
 // AWS.config.loadFromPath('.aws-credentials.json')
 
-var Call = require('./calls')
+var Call = require('./call')
 
 dynamo.createTables({
   'Call': {readCapacity: 5, writeCapacity: 5}
 }, function (err) {
   if (err) {
-    console.log('Error creating tables: ', err)
+    console.log('Error creating Call table: ', err)
   } else {
-    console.log('Tables has been created')
+    console.log('Call table has been created or already exists')
   }
 })
 

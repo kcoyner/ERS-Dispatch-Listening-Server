@@ -7,7 +7,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config')  // firebase
-const Call = require('../models')   // dynamo
+const Call = require('../models/call')   // dynamo
 const tableName = '/gfdDispatches/'
 
 router.get('/', (req, res) => {
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     var slug = req.query.slug
     Call.get(slug, function (err, data) {
       if (err) {
-        console.error('DYNAMO FETCH ERROR: ', err)
+        console.error('DYNAMO CALL FETCH ERROR: ', err)
       } else {
         // console.log(JSON.stringify(data))
         res.send(JSON.stringify(data))
