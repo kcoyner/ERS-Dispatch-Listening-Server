@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     var slug = req.query.slug
     Call.get(slug, function (err, data) {
       if (err) {
-        console.error('DYNAMO FETCH ERROR: ', err)
+        console.error('DYNAMO CALL FETCH ERROR: ', err)
       } else {
         // console.log(JSON.stringify(data))
         res.send(JSON.stringify(data))
