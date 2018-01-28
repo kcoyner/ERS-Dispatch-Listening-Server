@@ -7,7 +7,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config')  // firebase
-// const models = require('../db/models')   // postgresql
+const Call = require('../models')   // dynamo
 const tableName = '/gfdDispatches/'
 
 router.get('/', (req, res) => {
@@ -17,12 +17,25 @@ router.get('/', (req, res) => {
  * @param {string} res
  * @returns {string} snapshot call details
  */
-  if (req.query.code) {
+
+  if (req.query.slug) {
+    // for use with dynamo
+    var slug = req.query.slug
+    Call.get(slug, function (err, data) {
+      if (err) {
+        console.error('DYNAMO FETCH ERROR: ', err)
+      } else {
+        // console.log(JSON.stringify(data))
+        res.send(JSON.stringify(data))
+      }
+    })
+  } else if (req.query.code) {
+    // for use with firebase
     var code = req.query.code
     db.ref(`${tableName}${code}`).once('value')
       .then(function (snapshot) {
         if (snapshot) {
-          console.log(snapshot.val())
+          // console.log(snapshot.val())
           res.send(JSON.stringify(snapshot.val()))
         }
       })
