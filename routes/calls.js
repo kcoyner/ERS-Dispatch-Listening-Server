@@ -5,7 +5,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config') // firebase
-const Call = require('../models')
+const Call = require('../models/call')
 const cuid = require('cuid')
 const tableName = '/gfdDispatches/'
 

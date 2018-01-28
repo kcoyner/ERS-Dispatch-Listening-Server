@@ -7,7 +7,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../util/db-config')  // firebase
-const Call = require('../models')   // dynamo
+const Call = require('../models/call')   // dynamo
 const tableName = '/gfdDispatches/'
 
 router.get('/', (req, res) => {
