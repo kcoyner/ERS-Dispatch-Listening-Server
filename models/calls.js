@@ -8,8 +8,8 @@ const dynamo = require('dynamodb')
 const Joi = require('joi')
 
 const Call = dynamo.define('Call', {
-  hashKey: 'call_id',
-  rangeKey: 'timeout',
+  hashKey: 'slug',
+  // rangeKey: 'timeout',
   // add the timestamp attributes (updatedAt, createdAt)
   timestamps: true,
   schema: {

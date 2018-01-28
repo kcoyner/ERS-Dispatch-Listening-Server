@@ -85,7 +85,7 @@ const sendToDynamo = (res, data) => {
     if (err) {
       console.log('err: ', err)
     } else {
-      console.log('created new account in DynamoDB calls: ', newCall.get('call_id'))
+      console.log('created new item in DynamoDB calls: ', newCall.get('call_id'))
     }
   })
 }
