@@ -48,7 +48,6 @@ const sendToFirebase = (res, tableName, data) => {
 }
 
 const sendToDynamo = (res, data) => {
-  // console.log('Call: ', Call);
   let slug = cuid.slug()
   let assignment = data.UnitList.split(',').splice(1).join(' ')
   let radioFreq = data.UnitList.split(',')[0]
@@ -91,7 +90,7 @@ const sendToDynamo = (res, data) => {
 }
 
 // POST calls listing
-router.post('/', async function (req, res) {
+router.post('/', function (req, res) {
   let callQuery = null
 
   if (Object.values(req.query).length !== 0) {
@@ -103,11 +102,10 @@ router.post('/', async function (req, res) {
   }
 
   if (DEBUG === true) {
-    await sendToDynamo(res, callQuery)
+    sendToDynamo(res, callQuery)
     res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`)
   } else {
-    await sendToDynamo(res, callQuery)
-    sendToFirebase(res, tableName, callQuery)
+    sendToDynamo(res, callQuery)
   }
 })
 
