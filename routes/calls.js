@@ -13,25 +13,15 @@ const DEBUG = false // set this to true to suppress sending POST requests to Fir
 
 // GET calls listing
 router.get('/', function (req, res, next) {
-  db.ref(tableName).once('value')
-    .then(function (snapshot) {
-      // this is firebase
-      snapshot = Object.keys(snapshot.val()).map(function (k) {
-        return snapshot.val()[k]
-      })
-      if (snapshot) {
-        res.send(snapshot)
-      } else {
-        console.error('ERROR: failed to get a snapshot from Firebase')
-      }
+  Call.scan().loadAll().exec( (err, data) => {
+    let allCalls = Object.keys(data.Items).map(function (k) {
+      return data.Items[k].attrs
     })
-    .then(function () {
-        // TODO: this is postgresql
-//      models.calls.all().then(function (callList) {
-        // console.log('IP:: ', req.clientIp);
-        // console.log('Call List:: ', callList);
-//      })
-    })
+    err ?
+      console.error(`DYNAMO FETCH ERROR: ${err}`)
+    :
+      res.send(allCalls)
+  })
 })
 
 const sendToFirebase = (res, tableName, data) => {

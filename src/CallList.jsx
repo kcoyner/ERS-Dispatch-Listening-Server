@@ -27,15 +27,15 @@ const CallList = ( {callData} ) => (
 
       {callData.map((call, idx) => (
         <CallListEntry
-          callTimeout={ call.rec_dt }
+          callTimeout={ call.timeout }
           callDescription={ call.call_description }
           callDistrict={ call.city }
           callLocation={ call.location }
           callPremiseName={ call.premise_name }
-          callCrossStreets={ call.x_street_name }
-          callAssignment={ call.UnitList }
-          callRadioFreq={ (call.UnitList) }
-          callMap={ call.x_street_name }
+          callCrossStreets={ call.cross_street }
+          callAssignment={ call.assignment }
+          callRadioFreq={ (call.radio_freq) }
+          callMap={ call.map_ref }
           callRemarks={ call.cfs_remark }
           key={ idx }
         />

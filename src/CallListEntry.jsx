@@ -27,16 +27,16 @@ const CallListEntry = (props) => (
       }
     </div>
     <div className="call-data">
-      { props.callCrossStreets.split(' ').splice(3) }
+      { props.callCrossStreets }
     </div>
     <div className="call-data">
-      { props.callAssignment.split(',').slice(1) }
+      { props.callAssignment }
     </div>
     <div className="call-data">
-      { props.callRadioFreq.split(',')[0] }
+      { props.callRadioFreq }
     </div>
     <div className="call-data">
-      { props.callMap.split(' ')[2] }
+      { props.callMap }
     </div>
     <div className="call-data">
       { props.callRemarks }
