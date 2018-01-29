@@ -4,51 +4,28 @@
 
 const express = require('express')
 const router = express.Router()
-const db = require('../util/db-config') // firebase
 const Call = require('../models/call')
 const cuid = require('cuid')
-const tableName = '/gfdDispatches/'
 
-const DEBUG = false // set this to true to suppress sending POST requests to Firebase
+const DEBUG = false // set this to true to suppress sending POST requests to Dynamo
 
 // GET calls listing
 router.get('/', function (req, res, next) {
-  db.ref(tableName).once('value')
-    .then(function (snapshot) {
-      // this is firebase
-      snapshot = Object.keys(snapshot.val()).map(function (k) {
-        return snapshot.val()[k]
-      })
-      if (snapshot) {
-        res.send(snapshot)
-      } else {
-        console.error('ERROR: failed to get a snapshot from Firebase')
-      }
+  Call.scan().loadAll().exec( (err, data) => {
+    let allCalls = Object.keys(data.Items).map(function (k) {
+      return data.Items[k].attrs
     })
-    .then(function () {
-        // TODO: this is postgresql
-//      models.calls.all().then(function (callList) {
-        // console.log('IP:: ', req.clientIp);
-        // console.log('Call List:: ', callList);
-//      })
-    })
+    let sortedCalls = allCalls.slice(0)
+    sortedCalls.sort((a, b) => b.cfs_no - a.cfs_no)
+    let filteredCalls = sortedCalls.filter(call => call.test_call === false )
+    err ?
+      console.error(`DYNAMO FETCH ERROR: ${err}`)
+    :
+      res.send(filteredCalls)
+  })
 })
 
-const sendToFirebase = (res, tableName, data) => {
-  let newCall = db.ref(tableName).push(data, error => {
-    if (error) {
-      console.log(error)
-      res.sendStatus(500)
-    } else {
-      var newKey = newCall.getKey()
-      data = JSON.stringify(data)
-      res.send(`Your POST: ${data} with the new Key: ${newKey} was successful`)
-    }
-  })
-}
-
 const sendToDynamo = (res, data) => {
-  // console.log('Call: ', Call);
   let slug = cuid.slug()
   let assignment = data.UnitList.split(',').splice(1).join(' ')
   let radioFreq = data.UnitList.split(',')[0]
@@ -91,7 +68,7 @@ const sendToDynamo = (res, data) => {
 }
 
 // POST calls listing
-router.post('/', async function (req, res) {
+router.post('/', function (req, res) {
   let callQuery = null
 
   if (Object.values(req.query).length !== 0) {
@@ -103,11 +80,10 @@ router.post('/', async function (req, res) {
   }
 
   if (DEBUG === true) {
-    await sendToDynamo(res, callQuery)
-    res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`)
+    sendToDynamo(res, callQuery)
+    res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Dynamo`)
   } else {
-    await sendToDynamo(res, callQuery)
-    sendToFirebase(res, tableName, callQuery)
+    sendToDynamo(res, callQuery)
   }
 })
 
