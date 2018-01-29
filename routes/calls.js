@@ -4,12 +4,10 @@
 
 const express = require('express')
 const router = express.Router()
-const db = require('../util/db-config') // firebase
 const Call = require('../models/call')
 const cuid = require('cuid')
-const tableName = '/gfdDispatches/'
 
-const DEBUG = false // set this to true to suppress sending POST requests to Firebase
+const DEBUG = false // set this to true to suppress sending POST requests to Dynamo
 
 // GET calls listing
 router.get('/', function (req, res, next) {
@@ -17,25 +15,15 @@ router.get('/', function (req, res, next) {
     let allCalls = Object.keys(data.Items).map(function (k) {
       return data.Items[k].attrs
     })
+    let sortedCalls = allCalls.slice(0)
+    sortedCalls.sort((a, b) => b.cfs_no - a.cfs_no)
+    let filteredCalls = sortedCalls.filter(call => call.test_call === false )
     err ?
       console.error(`DYNAMO FETCH ERROR: ${err}`)
     :
-      res.send(allCalls)
+      res.send(filteredCalls)
   })
 })
-
-const sendToFirebase = (res, tableName, data) => {
-  let newCall = db.ref(tableName).push(data, error => {
-    if (error) {
-      console.log(error)
-      res.sendStatus(500)
-    } else {
-      var newKey = newCall.getKey()
-      data = JSON.stringify(data)
-      res.send(`Your POST: ${data} with the new Key: ${newKey} was successful`)
-    }
-  })
-}
 
 const sendToDynamo = (res, data) => {
   let slug = cuid.slug()
@@ -93,7 +81,7 @@ router.post('/', function (req, res) {
 
   if (DEBUG === true) {
     sendToDynamo(res, callQuery)
-    res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Firebase`)
+    res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Dynamo`)
   } else {
     sendToDynamo(res, callQuery)
   }
