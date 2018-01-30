@@ -6,8 +6,12 @@ Screenshot-AWS.png
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-public/bundle.js
 key
+
 .envrc
 .env
 .aws-credentials.json
+
+public/bundle.js
+public/bundle.js.gz
+public/bundle.js.map

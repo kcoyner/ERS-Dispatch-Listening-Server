@@ -1,26 +1,42 @@
-/*
+/**
  * app.js
+ *
  */
 
-var express = require('express')
-var fs = require('fs')
-var path = require('path')
-var favicon = require('serve-favicon')
-var morgan = require('morgan')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var cors = require('cors')
-var requestIp = require('request-ip')
-var rfs = require('rotating-file-stream')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
+const dotenv = require('dotenv').config()
+const express = require('express')
+const app = express()
+const favicon = require('serve-favicon')
+const morgan = require('morgan')
+const path = require('path')
+const requestIp = require('request-ip')
 
 var index = require('./routes/index')
 var users = require('./routes/users')
 var calls = require('./routes/calls')
 var api = require('./routes/api')
-
 var callMaker = require('./util/callGenerator.js')
 
-var app = express()
+const NODE_ENV = process.env.NODE_ENV
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const configProd = require('./webpack.prod.js')
+let config = require('./webpack.dev.js')
+if (NODE_ENV === 'production') {
+  config = configProd
+}
+const compiler = webpack(config)
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath
+}))
+
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200
+}
 
 /** morgan - log only 4xx and 5xx responses to console */
 app.use(morgan('dev', {
@@ -35,7 +51,7 @@ app.set('view engine', 'jade')
 
 // middleware
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(requestIp.mw())
 
 // parse various different custom JSON types as JSON
