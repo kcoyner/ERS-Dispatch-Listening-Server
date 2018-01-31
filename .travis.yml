@@ -47,7 +47,7 @@ deploy:
   skip_cleanup: true
   on: &2
     repo: kcoyner/ERS-Dispatch-Listening-Server
-    all_branches: true
+    branch: testing
   bucket: ers-dispatch
   upload-dir: testing
   region: us-east-1
