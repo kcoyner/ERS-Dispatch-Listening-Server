@@ -6,14 +6,14 @@
 const request = require('request');
 const schedule = require('node-schedule');
 
-const admin = require('firebase-admin');
-const serviceAccount = require('../key/ers-dispatch-firebase-adminsdk-08k8q-3c9e3d13f9');
-const firebase_cred = {
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://ers-dispatch.firebaseio.com',
-};
-admin.initializeApp(firebase_cred);
-const db = admin.database();
+// const admin = require('firebase-admin');
+// const serviceAccount = require('../key/ers-dispatch-firebase-adminsdk-08k8q-3c9e3d13f9');
+// const firebase_cred = {
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: 'https://ers-dispatch.firebaseio.com',
+// };
+// admin.initializeApp(firebase_cred);
+// const db = admin.database();
 
 /**
  * Generate a periodic GET request to ping Firebase to keep it alert
@@ -29,7 +29,7 @@ const startDatabasePinger = () => {
   pinger.second = 40;
 
   schedule.scheduleJob(pinger, function () {
-    const tableName = '/gfdDispatches/';
+    // const tableName = '/gfdDispatches/';
 
     var options = {
       method: 'GET',
