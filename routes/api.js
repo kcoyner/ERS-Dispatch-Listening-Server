@@ -6,9 +6,7 @@
 
 const express = require('express')
 const router = express.Router()
-const db = require('../util/db-config')  // firebase
 const Call = require('../models/call')   // dynamo
-const tableName = '/gfdDispatches/'
 
 router.get('/', (req, res) => {
 /**
@@ -29,21 +27,8 @@ router.get('/', (req, res) => {
         res.send(JSON.stringify(data))
       }
     })
-  } else if (req.query.code) {
-    // for use with firebase
-    var code = req.query.code
-    db.ref(`${tableName}${code}`).once('value')
-      .then(function (snapshot) {
-        if (snapshot) {
-          // console.log(snapshot.val())
-          res.send(JSON.stringify(snapshot.val()))
-        }
-      })
-      .catch(function (err) {
-        res.send(err)
-      })
   } else {
-    res.send('Please include key')
+    res.send('Please include a reference to slug')
   }
 })
 

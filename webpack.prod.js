@@ -25,7 +25,6 @@ module.exports = merge(common, {
     }),
     new webpack.optimize.UglifyJsPlugin({
       include: /\.min\.js$/,
-      minimize: true,
       sourceMap: true
     })
   ]
