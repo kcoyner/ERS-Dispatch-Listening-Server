@@ -5,8 +5,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
-// import CallList from './CallList.jsx'
-import CallList from '../Calls'
+import CallList from '../Calls/CallList.jsx'
+
 
 export default class Home extends React.Component {
   constructor (props) {
@@ -46,3 +46,4 @@ export default class Home extends React.Component {
     )
   }
 }
+

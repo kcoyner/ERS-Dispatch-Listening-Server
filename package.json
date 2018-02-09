@@ -37,7 +37,6 @@
     "dotenv": "4.0.0",
     "dynamodb": "^1.0.0",
     "express": "~4.15.2",
-    "file-loader": "^1.1.6",
     "firebase": "^4.4.0",
     "firebase-admin": "^5.5.0",
     "hawk": "^7.0.6",
@@ -58,16 +57,22 @@
     "redux-thunk": "2.2.0",
     "request": "^2.82.0",
     "request-ip": "2.0.2",
-    "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.77.0",
+    "semantic-ui-css": "2.2.14",
+    "semantic-ui-react": "0.77.2",
     "serve-favicon": "~2.4.2",
-    "url-loader": "^0.6.2",
     "webpack": "^3.6.0",
     "webpack-merge": "4.1.1"
   },
   "devDependencies": {
+    "css-loader": "0.28.9",
+    "extract-text-webpack-plugin": "3.0.2",
+    "file-loader": "1.1.6",
+    "html-webpack-plugin": "2.30.1",
     "nodemon": "^1.12.1",
+    "sass-loader": "6.0.6",
+    "style-loader": "0.20.1",
     "uglifyjs-webpack-plugin": "1.1.8",
+    "url-loader": "0.6.2",
     "webpack-dev-middleware": "2.0.4"
   }
 }
