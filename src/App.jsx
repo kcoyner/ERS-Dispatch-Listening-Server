@@ -6,17 +6,17 @@
 import React, { Component } from 'react'
 
 // TODO: need this import?
-// import {
+import {
 //   BrowserRouter as Router,
-//   Route,
+  Route
 //   Switch,
 //   Link
-// } from 'react-router-dom'
+} from 'react-router-dom'
 
-import Calls from './components/Calls'
-import Home from './components/Home'
-import Users from './components/Users'
-import NotFound from './components/NotFound'
+import Calls from './components/Calls/CallList.jsx'
+import Home from './components/Home/Home.jsx'
+import Users from './components/Users/Users.jsx'
+import NotFound from './components/NotFound/NotFound.jsx'
 // TODO:  add in a webpack compiler for scss and css loader and then uncomment
 // import './scss/main.scss'
 
