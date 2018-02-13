@@ -17,7 +17,7 @@ AWS.config.update({accessKeyId: AKID, secretAccessKey: SECRET, region: REGION})
 var Call = require('./call')
 
 dynamo.createTables({
-  'Call': {readCapacity: 5, writeCapacity: 5}
+  'Call': {readCapacity: 12, writeCapacity: 10}
 }, function (err) {
   if (err) {
     console.log('Error creating Call table: ', err)
