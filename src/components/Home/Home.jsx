@@ -6,8 +6,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import CallList from '../Calls/CallList.jsx'
+// import CallList from './CallList.jsx'
+// import CallList from '../Calls'
 
-
+// class App extends React.Component {
 export default class Home extends React.Component {
   constructor (props) {
     super(props)
@@ -47,3 +49,4 @@ export default class Home extends React.Component {
   }
 }
 
+ReactDOM.render(<App />, document.getElementById('app'))
