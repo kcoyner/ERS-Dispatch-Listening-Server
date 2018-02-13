@@ -49,4 +49,4 @@ export default class Home extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+// ReactDOM.render(<App />, document.getElementById('app'))
