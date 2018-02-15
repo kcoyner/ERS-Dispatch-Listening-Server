@@ -1,30 +1,34 @@
-/*
- * src/CallList.jsx
+/**
+ * src/components/Calls/CallList.jsx
  */
 
 import React from 'react';
-
 import CallListEntry from './CallListEntry.jsx';
+import {
+  Title,
+  Subtitle,
+  Entry,
+  Wrapper
+} from './CallList-css.js'
 
 const CallList = ( {callData} ) => (
+  <Wrapper>
+    <Title>Call List</Title>
 
-  <div className="call">
-    <h3>Call List</h3>
+        <Subtitle>
+        Timeout
+        Description
+        District
+        Location
+        Premise
+        Cross Streets
+        Assignment
+        Radio Freq
+        Map
+        Remarks
+        </Subtitle>
 
-    <div className="call-table">
-      <div className="call-row">
-        <div className="call-data">Timeout</div>
-        <div className="call-data">Description</div>
-        <div className="call-data">District</div>
-        <div className="call-data">Location</div>
-        <div className="call-data">Premise</div>
-        <div className="call-data">Cross Streets</div>
-        <div className="call-data">Assignment</div>
-        <div className="call-data">Radio Freq</div>
-        <div className="call-data">Map</div>
-        <div className="call-data">Remarks</div>
-      </div>
-
+      <Entry>
       {callData.map((call, idx) => (
         <CallListEntry
           callTimeout={ call.timeout }
@@ -40,8 +44,8 @@ const CallList = ( {callData} ) => (
           key={ idx }
         />
       ))}
-    </div>
-  </div>
-);
+      </Entry>
+  </Wrapper>
+)
 
 export default CallList;
