@@ -6,12 +6,15 @@ const express = require('express')
 const router = express.Router()
 const Call = require('../models/call')
 const cuid = require('cuid')
+const subDays = require('date-fns/sub_days')
 
 const DEBUG = false // set this to true to suppress sending POST requests to Dynamo
 
-// GET calls listing
+// GET calls listing for last x numberOfDays
+var numberOfDays = 3
 router.get('/', function (req, res, next) {
-  Call.scan().loadAll().exec( (err, data) => {
+  let startDate = subDays(Date.now(), numberOfDays)
+  Call.scan().where('createdAt').gte(startDate).exec( (err, data) => {
     let allCalls = Object.keys(data.Items).map(function (k) {
       return data.Items[k].attrs
     })
