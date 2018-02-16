@@ -9,7 +9,7 @@ const Joi = require('joi')
 
 const Call = dynamo.define('Call', {
   hashKey: 'slug',
-  // rangeKey: 'timeout',
+  rangeKey: 'createdAt',
   // add the timestamp attributes (updatedAt, createdAt)
   timestamps: true,
   schema: {
@@ -37,7 +37,12 @@ const Call = dynamo.define('Call', {
     test_call: Joi.boolean().default(false),
     zip: Joi.string().optional().allow(''),
     slug: Joi.string().optional().allow('')
-  }
+  },
+  // indexes: [
+  //   {hashKey: 'slug', rangeKey: 'createdAt', type: 'global', name: 'slug-createdAt-index'}
+  // ]
 })
+
+Call.log.level('warn')
 
 module.exports = Call

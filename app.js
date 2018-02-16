@@ -46,8 +46,8 @@ app.use(morgan('dev', {
 // view engine setup
 // TODO: only used for 404 right now.
 // re-do your 404 error handling and display
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'jade')
+// app.set('views', path.join(__dirname, 'views'))
+// app.set('view engine', 'jade')
 
 // middleware
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
@@ -67,27 +67,47 @@ app.use('/users', users)
 app.use('/calls', calls)
 app.use('/api', api)
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('Not Found')
-  err.status = 404
+app.use(function(req, res, next) {
+  var err = new Error('Not found today')
+  err.status = 400
   next(err)
 })
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+app.use(logErrors)
+app.use(clientErrorHandler)
+app.use(errorHandler)
+app.use(error404)
 
-  // render the error page
-  res.status(err.status || 500)
-  res.render('error')
-})
+function logErrors (err, req, res, next) {
+  console.error(err.stack)
+  next(err)
+}
+
+function clientErrorHandler (err, req, res, next) {
+  if (req.xhr) {
+    res.status(500).send({error: 'Something failed with xhr'})
+  } else {
+    next(err)
+  }
+}
+
+function errorHandler (err, res, req, next) {
+  res.status(500)
+  console.log('hey');
+  // res.send('error', { error: err})
+    next(err)
+}
+
+function error404 (err, req, res, next) {
+  var err = new Error('Not Found')
+  err.status = 404
+  console.log('hey dude - you have an error');
+  // TODO: direct this to the NotFound component
+}
 
 // start creating dummy calls
 // comment out once live data is received
 // see ./util/callGenerator.js
-callMaker.startDummyCalls()
+// callMaker.startDummyCalls()
 
 module.exports = app
