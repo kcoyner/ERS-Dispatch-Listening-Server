@@ -3,45 +3,49 @@
  */
 
 import React from 'react';
+import styled from "styled-components";
+import {
+  CallListRow,
+  CallListItem
+} from './CallListEntry-css'
 
 const CallListEntry = (props) => (
-  <div className="call-row">
-    <div className="call-data">
+  <CallListRow>
+    <CallListItem>
       { props.callTimeout.split(' ')[1].split(':').slice(0, 2).join(':') }
-      &nbsp;
       { props.callTimeout.split(' ')[0].split('-').slice(0, 2).join('-') }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callDescription }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callDistrict }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callLocation }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callLocation === props.callPremiseName ?
         '' :
         props.callPremiseName
       }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callCrossStreets }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callAssignment }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callRadioFreq }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callMap }
-    </div>
-    <div className="call-data">
+    </CallListItem>
+    <CallListItem>
       { props.callRemarks }
-    </div>
-  </div>
+    </CallListItem>
+  </CallListRow>
 
 );
 

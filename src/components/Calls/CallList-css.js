@@ -12,10 +12,12 @@ Title: styled.h1`
   color: DarkSlateGray;
 `,
 
-Subtitle: styled.h2`
-  font-size: 1.4em;
-  text-align: left;
+Subtitle: styled.div`
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   color: DarkSlateGray;
+  font-size: 1.4em;
+  margin: 0 10% 0 10%;
 `,
 
 Entry: styled.div`
@@ -27,5 +29,13 @@ Entry: styled.div`
 Wrapper: styled.section`
   padding: 4em;
   background: PapayaWhip;
+`,
+
+CallTable: styled.div`
+  display: grid;
+  margin: 0 10% 0 10%;
+  grid-template-columns: 1fr;
 `
+
+
 }
