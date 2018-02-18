@@ -7,7 +7,8 @@ import CallListEntry from './CallListEntry.jsx';
 import {
   Title,
   Subtitle,
-  Entry,
+  CallTable,
+  // Entry,
   Wrapper
 } from './CallList-css.js'
 
@@ -16,19 +17,19 @@ const CallList = ( {callData} ) => (
     <Title>Call List</Title>
 
         <Subtitle>
-        Timeout
-        Description
-        District
-        Location
-        Premise
-        Cross Streets
-        Assignment
-        Radio Freq
-        Map
-        Remarks
+          <div>Timeout</div>
+          <div>Description</div>
+          <div>District</div>
+          <div>Location</div>
+          <div>Premise</div>
+          <div>Cross Streets</div>
+          <div>Assignment</div>
+          <div>Radio Freq</div>
+          <div>Map</div>
+          <div>Remarks</div>
         </Subtitle>
 
-      <Entry>
+    <CallTable>
       {callData.map((call, idx) => (
         <CallListEntry
           callTimeout={ call.timeout }
@@ -44,7 +45,8 @@ const CallList = ( {callData} ) => (
           key={ idx }
         />
       ))}
-      </Entry>
+    </CallTable>
+
   </Wrapper>
 )
 
