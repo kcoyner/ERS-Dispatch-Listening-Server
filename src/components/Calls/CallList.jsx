@@ -17,16 +17,16 @@ const CallList = ( {callData} ) => (
     <Title>Call List</Title>
 
         <Subtitle>
-          <h2>Timeout</h2>
-          <h2>Description</h2>
-          <h2>District</h2>
-          <h2>Location</h2>
-          <h2>Premise</h2>
-          <h2>Cross Streets</h2>
-          <h2>Assignment</h2>
-          <h2>Radio Freq</h2>
-          <h2>Map</h2>
-          <h2>Remarks</h2>
+          <div>Timeout</div>
+          <div>Description</div>
+          <div>District</div>
+          <div>Location</div>
+          <div>Premise</div>
+          <div>Cross Streets</div>
+          <div>Assignment</div>
+          <div>Radio Freq</div>
+          <div>Map</div>
+          <div>Remarks</div>
         </Subtitle>
 
     <CallTable>

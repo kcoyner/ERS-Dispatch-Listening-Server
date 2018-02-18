@@ -17,7 +17,7 @@ Subtitle: styled.div`
   grid-template-columns: repeat(10, 1fr);
   color: DarkSlateGray;
   font-size: 1.4em;
-  margin: 0 10% 0 10%;
+  margin: 0 10% 10px 10%;
 `,
 
 Entry: styled.div`
@@ -35,6 +35,10 @@ CallTable: styled.div`
   display: grid;
   margin: 0 10% 0 10%;
   grid-template-columns: 1fr;
+    > div:nth-child(odd){
+      background-color: cornsilk;
+    }
+    > div:hover{background-color: tomato;}
 `
 
 

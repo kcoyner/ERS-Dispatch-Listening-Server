@@ -13,7 +13,8 @@ CallListRow: styled.div`
 `,
 
 CallListItem: styled.div`
-
+  display: flex;
+  align-items: center;
 `
 }
 
