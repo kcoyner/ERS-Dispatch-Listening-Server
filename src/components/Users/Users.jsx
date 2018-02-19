@@ -8,16 +8,34 @@ import ReactDOM from 'react-dom'
 export default class Users extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      userData: []
+    }
+    this.getUsers = this.getUsers.bind(this)
   }
 
   componentDidMount () {
+    this.getUsers()
+  }
+
+  getUsers () {
+    axios.get('/users')
+    .then( (response) => {
+      console.log(response)
+      this.setState({
+        userData: response
+      })
+    })
+    .catch( (error) => {
+      console.error(error)
+    })
   }
 
   render () {
     return (
-      <div className='users'>
-        &nbsp;
+      <div>
+        hello
+        {this.state.userData}
       </div>
     )
   }
