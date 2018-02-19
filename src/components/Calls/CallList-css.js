@@ -6,24 +6,25 @@ import styled from "styled-components";
 
 module.exports = {
 
-Title: styled.h1`
+Title: styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
   font-size: 2.0em;
   text-align: center;
-  color: DarkSlateGray;
+  color: white;
+  background-color: Crimson;
+  margin: 0 10% 0px 10%;
+  padding: .7% 0;
 `,
 
 Subtitle: styled.div`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  color: DarkSlateGray;
+  background-color: DarkRed;
+  color: white;
   font-size: 1.4em;
-  margin: 0 10% 10px 10%;
-`,
-
-Entry: styled.div`
-  font-size: 1.2em;
-  text-align: left;
-  color: DimGray;
+  margin: 0 10% 0px 10%;
+  padding: .7% 0;
 `,
 
 Wrapper: styled.section`
@@ -36,10 +37,8 @@ CallTable: styled.div`
   margin: 0 10% 0 10%;
   grid-template-columns: 1fr;
     > div:nth-child(odd){
-      background-color: cornsilk;
+      background-color: Gainsboro;
     }
     > div:hover{background-color: tomato;}
 `
-
-
 }

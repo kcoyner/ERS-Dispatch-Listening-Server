@@ -8,26 +8,24 @@ import {
   Title,
   Subtitle,
   CallTable,
-  // Entry,
   Wrapper
 } from './CallList-css.js'
 
 const CallList = ( {callData} ) => (
   <Wrapper>
     <Title>Call List</Title>
-
-        <Subtitle>
-          <div>Timeout</div>
-          <div>Description</div>
-          <div>District</div>
-          <div>Location</div>
-          <div>Premise</div>
-          <div>Cross Streets</div>
-          <div>Assignment</div>
-          <div>Radio Freq</div>
-          <div>Map</div>
-          <div>Remarks</div>
-        </Subtitle>
+      <Subtitle>
+        <div>&nbsp;Timeout</div>
+        <div>Description</div>
+        <div>District</div>
+        <div>Location</div>
+        <div>Premise</div>
+        <div>Cross Streets</div>
+        <div>Assignment</div>
+        <div>Radio Freq</div>
+        <div>Map</div>
+        <div>Remarks</div>
+      </Subtitle>
 
     <CallTable>
       {callData.map((call, idx) => (
@@ -46,7 +44,6 @@ const CallList = ( {callData} ) => (
         />
       ))}
     </CallTable>
-
   </Wrapper>
 )
 

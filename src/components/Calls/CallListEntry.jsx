@@ -12,7 +12,9 @@ import {
 const CallListEntry = (props) => (
   <CallListRow>
     <CallListItem>
+      &nbsp;
       { props.callTimeout.split(' ')[1].split(':').slice(0, 2).join(':') }
+      &nbsp;&nbsp;
       { props.callTimeout.split(' ')[0].split('-').slice(0, 2).join('-') }
     </CallListItem>
     <CallListItem>
@@ -46,7 +48,6 @@ const CallListEntry = (props) => (
       { props.callRemarks }
     </CallListItem>
   </CallListRow>
-
 );
 
 export default CallListEntry;
