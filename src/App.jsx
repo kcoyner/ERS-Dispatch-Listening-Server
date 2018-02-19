@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 
 // TODO: need this import?
 import {
-//   BrowserRouter as Router,
+  BrowserRouter as Router,
   Route
 //   Switch,
 //   Link

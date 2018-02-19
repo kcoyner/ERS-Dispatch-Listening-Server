@@ -7,7 +7,7 @@
 const dynamo = require('dynamodb')
 const Joi = require('joi')
 
-const Apparatus = dynamo.define('Station', {
+const Station = dynamo.define('Station', {
   hashKey: 'stationId',
   // add the timestamp attributes (updatedAt, createdAt)
   timestamps: true,

@@ -5,21 +5,20 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
+const Apparatus = require('../models/apparatus')
+const Station = require('../models/station')
 
-// GET users listing
+// GET all users listing
 router.get('/', function (req, res, next) {
-  if (req.query.mobile) {
     var user = req.query.mobile
-    User.get(user, function (err, data) {
+    User.scan().exec( (err, data) => {
       if (err) {
         console.error('DYNAMO USER FETCH ERROR: ', err)
       } else {
-        res.send(JSON.stringify(data))
+        // res.send(JSON.stringify(data))
+        res.send(data)
       }
     })
-  } else {
-    res.send('TODO: respond with a list of users')
-  }
 })
 
 module.exports = router

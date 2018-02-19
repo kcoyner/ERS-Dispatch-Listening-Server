@@ -13,7 +13,7 @@ const REGION = process.env.AWS_REGION
 
 AWS.config.update({accessKeyId: AKID, secretAccessKey: SECRET, region: REGION})
 
-var User = require('./station')
+var Station = require('./station')
 
 dynamo.createTables({
   'Station': {readCapacity: 5, writeCapacity: 5}
