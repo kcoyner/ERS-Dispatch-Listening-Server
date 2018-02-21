@@ -4,6 +4,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+import styled from "styled-components";
 
 export default class NotFound extends React.Component {
   constructor (props) {
@@ -16,7 +17,7 @@ export default class NotFound extends React.Component {
 
   render () {
     return (
-      <div className='notfound'>
+      <div>
         <p>404</p>
         <p>Page not found.  Sorry.</p>
       </div>
