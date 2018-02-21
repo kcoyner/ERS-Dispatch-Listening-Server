@@ -10,9 +10,6 @@ apt-get -y install nginx
 # Replace the default nginx website config with a proxy to our node app
 # Get this file from S3
 rm -f /etc/nginx/sites-available/default
-#cd /etc/nginx/sites-available
-#wget https://s3.amazonaws.com/ers-dispatch/nginx-server.conf
-#mv /etc/nginx/sites-available/nginx-server.conf /etc/nginx/sites-available/default
 aws s3 cp s3://ers-dispatch/scripts/nginx-server.conf /etc/nginx/sites-available/default
 
 # Get the firebase key from S3 and inject it into the key directory
