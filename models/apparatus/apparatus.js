@@ -15,7 +15,8 @@ const Apparatus = dynamo.define('Apparatus', {
     apparatusId: Joi.string().optional().allow(''),
     apparatusName: Joi.string().optional().allow(''),
     enabled: Joi.boolean().default(true)
-  }
+  },
+  tableName: 'apparatus'
 })
 
 module.exports = Apparatus
