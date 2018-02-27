@@ -4,9 +4,10 @@
 
 const express = require('express')
 const router = express.Router()
-const Call = require('../models/call')
 const cuid = require('cuid')
 const subDays = require('date-fns/sub_days')
+const Call = require('../models/call')
+const emailTransporter = require('../util/sendEmailSES')
 
 const DEBUG = false // set this to true to suppress sending POST requests to Dynamo
 
@@ -28,7 +29,7 @@ router.get('/', function (req, res, next) {
   })
 })
 
-const sendToDynamo = (res, data) => {
+const processData = (data) => {
   let slug = cuid.slug()
   let assignment = data.UnitList.split(',').splice(1).join(' ')
   let radioFreq = data.UnitList.split(',')[0]
@@ -60,7 +61,12 @@ const sendToDynamo = (res, data) => {
     zip: data.zip,
     slug: slug
   }
-  var newCall = new Call(callDetails)
+  return callDetails
+}
+
+const sendToDynamo = (processedData) => {
+  var newCall = new Call(processedData)
+  console.log('processedData.slug.in.sendToDynamo: ', processedData.slug);
   newCall.save(function (err) {
     if (err) {
       console.log('err: ', err)
@@ -70,8 +76,29 @@ const sendToDynamo = (res, data) => {
   })
 }
 
+const sendEmail = (data) => {
+  emailTransporter.sendMail({
+      from: 'kevin@rustybear.com',
+      to: 'rustybear@gmail.com',
+      subject: 'GFD Call',
+      text: `Call type: ${data.call_category}
+Location: ${data.location}  ${data.city}
+Assignment: ${data.assignment}
+Details: https://ers-dispatch.firebaseapp.com/?id=${data.slug}
+      `
+  }, (err, info) => {
+      if (err) {
+          console.error(err)
+      } else {
+          console.log(info.envelope);
+          console.log(info.messageId);
+      }
+  });
+}
+
+
 // POST calls listing
-router.post('/', function (req, res) {
+router.post('/', async function (req, res) {
   let callQuery = null
 
   if (Object.values(req.query).length !== 0) {
@@ -83,10 +110,13 @@ router.post('/', function (req, res) {
   }
 
   if (DEBUG === true) {
-    sendToDynamo(res, callQuery)
+    // send to Dynamo and email
     res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Dynamo`)
   } else {
-    sendToDynamo(res, callQuery)
+    let processedData = await processData(callQuery)
+    await sendToDynamo(processedData)
+    sendEmail(processedData)
+    res.send(`SUCCESS: Your POST of ${JSON.stringify(processedData)} was successful`)
   }
 })
 
