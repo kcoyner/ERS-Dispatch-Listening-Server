@@ -6,10 +6,11 @@ const express = require('express')
 const router = express.Router()
 const cuid = require('cuid')
 const subDays = require('date-fns/sub_days')
+const Apparatus = require('../models/apparatus')
 const Call = require('../models/call')
 const emailTransporter = require('../util/sendEmailSES')
 
-const DEBUG = false // set this to true to suppress sending POST requests to Dynamo
+const DEBUG = true // set this to true to suppress sending POST requests to Dynamo
 
 // GET calls listing for last x numberOfDays
 var numberOfDays = 3
@@ -76,6 +77,20 @@ const sendToDynamo = (processedData) => {
   })
 }
 
+// scan users that have a tracking equal to the assignment engines
+const getTargetedUsers = (apparatusArr) => {
+  apparatusArr.forEach(apparatus => {
+    Apparatus.query(apparatus).exec( (err, data) => {
+      if (err) {
+        console.log('Apparatus Error: ', err)
+      } else {
+        // console.log('Apparatus data: ', data.Items[0].attrs.apparatusId)
+        console.log('Apparatus data: ', data.Items)
+      }
+    })
+  })
+}
+
 const sendEmail = (data) => {
   emailTransporter.sendMail({
       from: 'postmaster@signalclick.com',
@@ -110,6 +125,14 @@ router.post('/', async function (req, res) {
 
   if (DEBUG === true) {
     // send to Dynamo and email
+    let processedData = await processData(callQuery)
+    let apparatusStr = processedData.assignment
+    apparatusArr = apparatusStr.replace(/\s+/g,' ').trim().split(' ')
+
+    console.log((apparatusArr))
+    // console.log('processedData: ', processedData);
+    // getTargetedUsers(apparatus[0])
+    getTargetedUsers(apparatusArr)
     res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Dynamo`)
   } else {
     let processedData = await processData(callQuery)
