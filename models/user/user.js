@@ -18,6 +18,7 @@ const User = dynamo.define('User', {
     firstName: Joi.string().optional().allow(''),
     lastName: Joi.string().optional().allow(''),
     mobile: Joi.string().replace(/-/g, '').replace(/\./g, '').replace(/\(/g, '').replace(/\)/, ''),
+    carrier: Joi.string().optional().allow(''),
     tracking: Joi.array().items(Joi.string()).allow(''),
     enabled: Joi.boolean().default(true)
   }
