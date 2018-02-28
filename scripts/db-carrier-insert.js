@@ -18,7 +18,22 @@ const Carrier = require('../models/carrier/carrier')
 
 var carrier = {
   "google":"@msg.fi.google.com",
-  "verizon":"@vtext.com"
+  "verizon":"@vtext.com",
+  "att":"@txt.att.net",
+  "tmobile":"@tmomail.net",
+  "verizon":"@vtext.com",
+  "virgin":"@vmobl.com",
+  "tracfone":"@mmst5.tracfone.com",
+  "metropcs":"@mymetropcs.com",
+  "boost":"@sms.myboostmobile.com",
+  "cricket":"@sms.cricketwireless.net",
+  "uscellular":"@email.uscc.net",
+  "consumercellular":"@mailmymobile.net",
+  "ting":"@message.ting.com",
+  "cspire":"@cspire1.com",
+  "pageplus":"@vtext.com",
+  "republicwireless":"@text.republicwireless.com",
+  "sprint":"@messaging.sprintpcs.com"
 }
 
 for(var key in carrier) {
