@@ -79,7 +79,7 @@ const sendToDynamo = (processedData) => {
 const sendEmail = (data) => {
   emailTransporter.sendMail({
       from: 'kevin@rustybear.com',
-      to: 'rustybear@gmail.com',
+      to: '2035160005@msg.fi.google.com',
       subject: 'GFD Call',
       text: `Call type: ${data.call_category}
 Location: ${data.location}  ${data.city}
