@@ -96,7 +96,6 @@ Details: https://ers-dispatch.firebaseapp.com/?id=${data.slug}
   });
 }
 
-
 // POST calls listing
 router.post('/', async function (req, res) {
   let callQuery = null
