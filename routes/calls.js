@@ -7,9 +7,10 @@ const router = express.Router()
 const cuid = require('cuid')
 const subDays = require('date-fns/sub_days')
 const Call = require('../models/call')
+const db = require('../models/call')
 const emailTransporter = require('../util/sendEmailSES')
 
-const DEBUG = false // set this to true to suppress sending POST requests to Dynamo
+const DEBUG = true // set this to true to suppress sending POST requests to Dynamo
 
 // GET calls listing for last x numberOfDays
 var numberOfDays = 3
@@ -64,6 +65,19 @@ const processData = (data) => {
   return callDetails
 }
 
+const sendToPostgres = (processedData) => {
+  console.log('THIS IS db: ', db);
+  db.Call.create(processedData)
+  .then(processedData => {
+    console.log('PG CALL DETAILS:  ', processedData)
+  })
+  .catch(error => {
+    // TODO: not sure this is working or correct. creates unhandled promise error
+    // To test, misspell processedData above
+    throw error
+  })
+}
+
 const sendToDynamo = (processedData) => {
   var newCall = new Call(processedData)
   console.log('processedData.slug.in.sendToDynamo: ', processedData.slug);
@@ -108,11 +122,13 @@ router.post('/', async function (req, res) {
     callQuery = JSON.parse(req.body)
   }
 
+  let processedData = await processData(callQuery)
+
   if (DEBUG === true) {
     // send to Dynamo and email
-    res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Dynamo`)
+    await sendToPostgres(processedData)
+    res.send(`DEBUG:  Your POST of ${JSON.stringify(callQuery)} was successful but was not sent to Dynamo or Postgres`)
   } else {
-    let processedData = await processData(callQuery)
     await sendToDynamo(processedData)
     sendEmail(processedData)
     res.send(`SUCCESS: Your POST of ${JSON.stringify(processedData)} was successful`)
