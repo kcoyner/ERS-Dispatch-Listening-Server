@@ -16,9 +16,9 @@ const DBNAME = 'gfddispatch'
 const DBUSER = 'webapplogin'
 // DB settings set with environment variables
 var dbHost = 'ersdispatch.cguymocs6upp.us-east-1.rds.amazonaws.com'
-var dbPasswd = ''
+// var dbPasswd = ''
 var isDbConnSSL = false // for AWS use true, for localhost use false
-isDbConnSSL = true
+isDbConnSSL = false
 
 const sequelize = new Sequelize(DBNAME, DBUSER, DB_PG_PASSWD, {
   host: dbHost,
@@ -39,7 +39,7 @@ const sequelize = new Sequelize(DBNAME, DBUSER, DB_PG_PASSWD, {
 
 fs.readdirSync(path.join(__dirname, '/'))
   .filter(function (file) {
-    return (file.indexOf('.') !== 0) && (file !== 'index.js') && (file !== 'call.js')
+    return (file.indexOf('.') !== 0) && (file !== 'index.js')
   })
   .forEach(function (file) {
     var model = sequelize['import'](path.join(__dirname + '/', file))
@@ -57,41 +57,4 @@ db.Sequelize = Sequelize
 // db.users.hasMany(db.scores, {foreignKey: 'user_id'});
 // db.scores.belongsTo(db.users, {foreignKey: 'user_id'});
 
-// module.exports = db
-module.exports.db = db
-// exports.db = db
-
-
-
-/**
- * This is where Dynamo begins
- *
- */
-
-// const NODE_ENV = process.env.NODE_ENV
-// const dotenv = require('dotenv').config()
-var dynamo = require('dynamodb')
-var AWS = dynamo.AWS
-
-const AKID = process.env.AWS_ACCESS_KEY_ID
-const SECRET = process.env.AWS_SECRET_ACCESS_KEY
-const REGION = process.env.AWS_REGION
-
-AWS.config.update({accessKeyId: AKID, secretAccessKey: SECRET, region: REGION})
-// AWS.config.loadFromPath('.aws-credentials.json')
-
-var Call = require('./call')
-
-dynamo.createTables({
-  'Call': {readCapacity: 11, writeCapacity: 9}
-}, function (err) {
-  if (err) {
-    console.log('Error creating Call table: ', err)
-  } else {
-    console.log('Call table has been created or already exists')
-  }
-})
-
-// module.exports = Call
-module.exports.Call = Call
-// exports.Call = Call
+module.exports = db

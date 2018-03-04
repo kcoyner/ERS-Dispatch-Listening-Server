@@ -6,27 +6,39 @@ const express = require('express')
 const router = express.Router()
 const cuid = require('cuid')
 const subDays = require('date-fns/sub_days')
-const Call = require('../models/call')
-const db = require('../models/call')
+// const Call = require('../models/call/call-dynamo')
+const db = require('../models')
 const emailTransporter = require('../util/sendEmailSES')
 
 const DEBUG = true // set this to true to suppress sending POST requests to Dynamo
 
 // GET calls listing for last x numberOfDays
 var numberOfDays = 3
+
+// router.get('/', function (req, res, next) {
+//   let startDate = subDays(Date.now(), numberOfDays)
+//   Call.scan().where('createdAt').gte(startDate).exec( (err, data) => {
+//     let allCalls = Object.keys(data.Items).map(function (k) {
+//       return data.Items[k].attrs
+//     })
+//     let sortedCalls = allCalls.slice(0)
+//     sortedCalls.sort((a, b) => b.cfs_no - a.cfs_no)
+//     let filteredCalls = sortedCalls.filter(call => call.test_call === false )
+//     err ?
+//       console.error(`DYNAMO FETCH ERROR: ${err}`)
+//     :
+//       res.send(filteredCalls)
+//   })
+// })
+
+//TODO:  error proof and sort
 router.get('/', function (req, res, next) {
   let startDate = subDays(Date.now(), numberOfDays)
-  Call.scan().where('createdAt').gte(startDate).exec( (err, data) => {
-    let allCalls = Object.keys(data.Items).map(function (k) {
-      return data.Items[k].attrs
+  db.calls.all().then(function (callList) {
+    let allCalls = Object.keys(callList).map(function (k) {
+      return callList[k].dataValues
     })
-    let sortedCalls = allCalls.slice(0)
-    sortedCalls.sort((a, b) => b.cfs_no - a.cfs_no)
-    let filteredCalls = sortedCalls.filter(call => call.test_call === false )
-    err ?
-      console.error(`DYNAMO FETCH ERROR: ${err}`)
-    :
-      res.send(filteredCalls)
+    res.send(allCalls)
   })
 })
 
@@ -67,7 +79,7 @@ const processData = (data) => {
 
 const sendToPostgres = (processedData) => {
   console.log('THIS IS db: ', db);
-  db.Call.create(processedData)
+  db.calls.create(processedData)
   .then(processedData => {
     console.log('PG CALL DETAILS:  ', processedData)
   })

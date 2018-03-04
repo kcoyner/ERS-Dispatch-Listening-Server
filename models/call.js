@@ -1,5 +1,5 @@
 /**
- * models/call/call-pg.js
+ * models/call.js
  *
  */
 'use strict'
@@ -8,7 +8,7 @@ const Sequelize = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('calls', {
-    call_id: {
+    callId: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
