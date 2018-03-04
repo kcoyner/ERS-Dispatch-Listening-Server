@@ -14,6 +14,7 @@ const Apparatus = dynamo.define('Apparatus', {
   schema: {
     apparatusId: Joi.string().optional().allow(''),
     apparatusName: Joi.string().optional().allow(''),
+    trackedBy: Joi.array().items(Joi.string()).allow(''),
     enabled: Joi.boolean().default(true)
   },
   tableName: 'apparatus'

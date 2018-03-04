@@ -44,6 +44,8 @@ for(var key in apparatus) {
     Apparatus.create({
       apparatusId: key,
       apparatusName: apparatus[key],
+      // trackedBy: [],
+      trackedBy: [ '2035160005@msg.fi.google.com', '2035551212@vtext.com' ],
       enabled: true
     },
     function (err, apparatus) {
