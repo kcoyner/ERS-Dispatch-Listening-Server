@@ -78,7 +78,6 @@ const processData = (data) => {
 }
 
 const sendToPostgres = (processedData) => {
-  console.log('THIS IS db: ', db);
   db.calls.create(processedData)
   .then(processedData => {
     console.log('PG CALL DETAILS:  ', processedData)
@@ -92,7 +91,6 @@ const sendToPostgres = (processedData) => {
 
 const sendToDynamo = (processedData) => {
   var newCall = new Call(processedData)
-  console.log('processedData.slug.in.sendToDynamo: ', processedData.slug);
   newCall.save(function (err) {
     if (err) {
       console.log('err: ', err)

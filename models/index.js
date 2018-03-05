@@ -15,10 +15,11 @@ var db = {}
 const DBNAME = 'gfddispatch'
 const DBUSER = 'webapplogin'
 // DB settings set with environment variables
-var dbHost = 'ersdispatch.cguymocs6upp.us-east-1.rds.amazonaws.com'
-// var dbPasswd = ''
+var dbHost = 'dispatchresponse.cyqnwvgizc2j.us-east-1.rds.amazonaws.com'
 var isDbConnSSL = false // for AWS use true, for localhost use false
-isDbConnSSL = false
+if (NODE_ENV === 'production') {
+  isDbConnSSL = true
+}
 
 const sequelize = new Sequelize(DBNAME, DBUSER, DB_PG_PASSWD, {
   host: dbHost,
