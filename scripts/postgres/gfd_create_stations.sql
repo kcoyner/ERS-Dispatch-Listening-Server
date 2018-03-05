@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS apparatus CASCADE;
+DROP TABLE IF EXISTS stations CASCADE;
 CREATE TABLE "stations" (
         "stationId" varchar NOT NULL UNIQUE,
-        "apparatusName" varchar NOT NULL,
+        "stationName" varchar NOT NULL,
         "enabled" boolean NOT NULL DEFAULT true
 ) WITH (
   OIDS=FALSE

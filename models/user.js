@@ -36,14 +36,15 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: null
     },
     tracking: {
-      type: Sequelize.ARRAY(Sequelize.TEXT),
-      allowNull: false,
-      defaultValue: ['E1, E2']
+      type: Sequelize.STRING,
+      // type: Sequelize.ARRAY(Sequelize.STRING),
+      allowNull: false
+      // defaultValue: ['E1, E2']
     },
     enabled: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: true
     }
   })
 }

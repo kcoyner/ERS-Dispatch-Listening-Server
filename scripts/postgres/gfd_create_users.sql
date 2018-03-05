@@ -4,10 +4,9 @@ CREATE TABLE "users" (
         "firstName" varchar NOT NULL,
         "lastName" varchar NOT NULL,
         "mobile" varchar NOT NULL default '2035551212',
-        "carrier" text ARRAY,
+        "carrier" varchar NOT NULL,
         "tracking" varchar NOT NULL,
         "enabled" boolean NOT NULL DEFAULT true
 ) WITH (
   OIDS=FALSE
 );
-
