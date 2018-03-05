@@ -33,7 +33,7 @@ const sequelize = new Sequelize(DBNAME, DBUSER, DB_PG_PASSWD, {
   operatorsAliases: false,
   define: {
     charset: 'utf8',
-    timestamps: false
+    timestamps: true
   }
 })
 

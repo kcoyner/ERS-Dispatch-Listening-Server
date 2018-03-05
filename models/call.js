@@ -168,5 +168,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'py2f7hq7'
     },
+    createdAt: {
+      type: Sequelize.DATE,
+      allowNull: false
+    },
+    updatedAt: {
+      type: Sequelize.DATE,
+      allowNull: false
+    }
   })
 }
