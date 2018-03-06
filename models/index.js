@@ -1,25 +1,20 @@
 /**
- *  models/call/index.js
+ *  models/index.js
  */
 
-// For use with postgresql
 const Sequelize = require('sequelize')
 const fs = require('fs')
 const path = require('path')
 const dotenv = require('dotenv').config()
 
-// const tracking = require('./tracking')
-const apparatus = require('./apparatus')
-const users = require('./user')
-
 // Retrieve environment variables
 const NODE_ENV = process.env.NODE_ENV
 const DB_PG_PASSWD = process.env.DB_PG_PASSWD
+
 // Initialize database settings
 var db = {}
 const DBNAME = 'gfddispatch'
 const DBUSER = 'webapplogin'
-// DB settings set with environment variables
 var dbHost = 'dispatchresponse.cyqnwvgizc2j.us-east-1.rds.amazonaws.com'
 var isDbConnSSL = false // for AWS use true, for localhost use false
 if (NODE_ENV === 'production') {
@@ -43,29 +38,16 @@ const sequelize = new Sequelize(DBNAME, DBUSER, DB_PG_PASSWD, {
   }
 })
 
-fs.readdirSync(path.join(__dirname, '/'))
-  .filter(function (file) {
-    return (file.indexOf('.') !== 0) && (file !== 'index.js')
-  })
-  .forEach(function (file) {
-    var model = sequelize['import'](path.join(__dirname + '/', file))
-    db[model.name] = model
-  })
-
-Object.keys(db).forEach(function (modelName) {
-  if ('associate' in db[modelName]) {
-    db[modelName].associate(db)
-  }
-})
-
 db.sequelize = sequelize
 db.Sequelize = Sequelize
-// db.users.hasMany(db.scores, {foreignKey: 'user_id'});
-// db.scores.belongsTo(db.users, {foreignKey: 'user_id'});
-//
-db.users.hasMany(db.tracking, {foreignKey: 'userId'});
-db.tracking.belongsTo(db.users, {foreignKey: 'userId'});
-db.apparatus.hasMany(db.tracking, {foreignKey: 'apparatusId'});
-db.tracking.belongsTo(db.apparatus, {foreignKey: 'apparatusId'});
+
+db.users = require('./user')(sequelize, Sequelize)
+db.calls = require('./call')(sequelize, Sequelize)
+db.carriers = require('./carrier')(sequelize, Sequelize)
+db.stations = require('./station')(sequelize, Sequelize)
+db.apparatus = require('./apparatus')(sequelize, Sequelize)
+
+db.users.belongsToMany(db.apparatus, {through: 'tracking'});
+db.apparatus.belongsToMany(db.users, {through: 'tracking'});
 
 module.exports = db
