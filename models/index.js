@@ -7,6 +7,11 @@ const Sequelize = require('sequelize')
 const fs = require('fs')
 const path = require('path')
 const dotenv = require('dotenv').config()
+
+// const tracking = require('./tracking')
+const apparatus = require('./apparatus')
+const users = require('./user')
+
 // Retrieve environment variables
 const NODE_ENV = process.env.NODE_ENV
 const DB_PG_PASSWD = process.env.DB_PG_PASSWD
@@ -57,5 +62,10 @@ db.sequelize = sequelize
 db.Sequelize = Sequelize
 // db.users.hasMany(db.scores, {foreignKey: 'user_id'});
 // db.scores.belongsTo(db.users, {foreignKey: 'user_id'});
+//
+db.users.hasMany(db.tracking, {foreignKey: 'userId'});
+db.tracking.belongsTo(db.users, {foreignKey: 'userId'});
+db.apparatus.hasMany(db.tracking, {foreignKey: 'apparatusId'});
+db.tracking.belongsTo(db.apparatus, {foreignKey: 'apparatusId'});
 
 module.exports = db

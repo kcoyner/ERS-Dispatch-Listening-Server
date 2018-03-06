@@ -6,7 +6,9 @@ CREATE TABLE "users" (
         "mobile" varchar NOT NULL default '2035551212',
         "carrier" varchar NOT NULL,
         "tracking" varchar NOT NULL,
-        "enabled" boolean NOT NULL DEFAULT true
+        "enabled" boolean NOT NULL DEFAULT true,
+        "createdAt" date NOT NULL,
+        "updatedAt" date NOT NULL
 ) WITH (
   OIDS=FALSE
 );

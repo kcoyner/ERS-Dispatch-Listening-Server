@@ -77,6 +77,13 @@ const processData = (data) => {
   return callDetails
 }
 
+const buildRecipientList = (processedData) => {
+  let assignment = processedData.assignment
+  //  assignment is an array
+  // a fancy join between apparatus assigned and the users tracking those
+  // apparatus
+}
+
 const sendToPostgres = (processedData) => {
   db.calls.create(processedData)
   .then(processedData => {

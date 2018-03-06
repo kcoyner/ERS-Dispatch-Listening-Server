@@ -63,8 +63,8 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', index)
-app.use('/users', users)
-app.use('/calls', calls)
+app.use('/api/users', users)
+app.use('/api/calls', calls)
 app.use('/api', api)
 
 app.use(function(req, res, next) {
